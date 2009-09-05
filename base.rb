@@ -27,8 +27,8 @@ coverage
 tmp
 test/log
 log/test
-\#*
-.\#*
+\\#*
+.\\#*
 apple_report_*.xls
 .DS_Store
 .svn
