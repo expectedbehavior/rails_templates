@@ -21,6 +21,7 @@ run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
 run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
 file '.gitignore', <<-END
 log/*.log
+log/*.pid
 *~
 db/*.bkp
 coverage
@@ -35,6 +36,18 @@ apple_report_*.xls
 db/deep_test*
 *_flymake.*
 db/*.sqlite3
+public/system
+public/p/*
+config/*.sphinx.conf
+db/*sphinx
+log/*.pid
+log/culerity_page_errors
+public/javascripts/all.js
+public/stylesheets/all.css
+public/images/upload
+public/data
+*.LCK
+.sass-cache
 END
 
 git :init
