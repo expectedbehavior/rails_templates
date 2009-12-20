@@ -134,7 +134,7 @@ cucumber_paths.each do |matcher, path|
 end
 
 git :add => '.'
-git :commit => "-m 'add some paths we'll need for cucumber'"
+git :commit => "-m 'add some paths we will need for cucumber'"
 
 file "features/login.feature", <<-END
 Feature: Logging in
