@@ -1,5 +1,9 @@
 # find easy way to force mysql
 
+if `which unzip`.blank?
+  exit 0 unless ask("Couldn't find 'unzip' to unpack jruby, continue? [N,y]") =~ /y/i
+end
+
 run "echo 'TODO' > README"
 run "rm public/index.html"
 run "rm public/favicon.ico"
@@ -136,14 +140,27 @@ git :commit => "-m 'schema'"
 
 
 
-
-
-jruby_folder = "jruby-1.4.0"
-
-# need to figure out a real way to get jruby into vendor
-# work out jruby version number
-run "cp -r ~/Downloads/#{jruby_folder} vendor/"
+# get and unpack jruby into vendor
+jruby_url = "http://jruby.kenai.com/downloads/1.4.0/jruby-bin-1.4.0.zip"
+zip_name = File.basename(jruby_url)
+jruby_folder = ""
+inside "vendor" do
+  open(jruby_url) do |remote_file|
+    File.open(zip_name, "w") do |local_file|
+      local_file.write remote_file.read
+    end
+  end
   
+  run "unzip #{zip_name}"
+  run "rm #{zip_name}"
+  
+  jruby_folder = Dir["jruby*"].first
+end
+
+# install celerity in jruby
+run "vendor/#{jruby_folder}/bin/jruby -S gem install celerity"
+
+# culerity needs jruby in the path
 gsub_file "config/environment.rb", /\A/, <<-END
 OSX_JAVA_HOME = "/System/Library/Frameworks/JavaVM.framework/Home"
 UBUNTU_JAVA_HOME = "/usr/lib/jvm/java-1.5.0-sun"
@@ -166,25 +183,41 @@ END
 plugin "culerity", :git => "git://github.com/langalex/culerity.git"
 generate :cucumber
 generate :culerity, "-f"
+
+# webrat steps conflict with culerity
 run "rm features/step_definitions/web_steps.rb"
 
+# make cucumber restart the passenger test instance on every run
+gsub_file "features/support/env.rb", /\Z/, <<-'END'
 
+require 'fileutils'
+FileUtils.touch "#{RAILS_ROOT}/tmp/restart.txt"
+END
+
+# print the number of the test before running it so we get an idea of progress
+gsub_file "features/support/env.rb", /\Z/, <<-'END'
+
+@@cucumber_cli_test_number = 1
+Before do
+  puts "--- TEST ##{@@cucumber_cli_test_number} ---"
+  @@cucumber_cli_test_number += 1
+end
+END
+
+# run the 'test' bootstrap before each test
 gsub_file "features/support/env.rb", /\Z/, <<-'END'
 
 require 'factory_girl'
 require "#{RAILS_ROOT}/test/factories.rb"
 require "#{RAILS_ROOT}/db/bootstrap.rb"
 
-require 'fileutils'
-FileUtils.touch "#{RAILS_ROOT}/tmp/restart.txt"
-
-@@cucumber_cli_test_number = 1
-
 Before do
-  puts "--- TEST ##{@@cucumber_cli_test_number} ---"
-  @@cucumber_cli_test_number += 1
   Bootstrapper.run :test
 end
+END
+
+# add this handy method to let us print the current page when a step failes
+gsub_file "features/support/env.rb", /\Z/, <<-'END'
 
 def print_page_on_error(*args, &block)
   begin
@@ -234,10 +267,13 @@ END
   end
 end
 
-run "vendor/#{jruby_folder}/bin/jruby -S gem install celerity"
-
-gsub_file "features/support/paths.rb", /(case page_name.*)/, "\\1\n    when /the signup page/\n      signup_path\n"
-gsub_file "features/support/paths.rb", /(case page_name.*)/, "\\1\n    when /the login page/\n      login_path\n"
+cucumber_paths = {
+  "the signup page" => "signup_path",
+  "the login page"  => "login_path",
+}
+cucumber_paths.each do |matcher, path|
+  gsub_file "features/support/paths.rb", /(case page_name.*)/, "\\1\n    when /#{matcher}/\n      #{path}\n"
+end
 
 flash_erb = %Q{<p style="color: green"><%= flash[:notice] %></p>}
 gsub_file "app/views/layouts/users.html.erb", /(#{Regexp.escape(flash_erb)})/, '<div>\1</div>'
