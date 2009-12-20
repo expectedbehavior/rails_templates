@@ -1,11 +1,4 @@
 # find easy way to force mysql
-# database.yml should have a real username and randomly generated password
-# should install the db_setup script
-
-# install exception notifier and set it up
-# turn on protect_forgery since we never want it
-
-require 'pwfoo'
 
 run "echo 'TODO' > README"
 run "rm public/index.html"
@@ -14,8 +7,6 @@ run "rm public/robots.txt"
 
 # Freeze!
 rake "rails:freeze:gems"
-
-#load_template "http://github.com/systematic/rails_templates/raw/master/initial_git_commit.rb
 
 # Set up git repository
 run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
@@ -67,6 +58,12 @@ git :commit => "-m 'initial commit'"
 plugin 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 plugin 'haml', :git => 'git://github.com/nex3/haml.git'
 plugin 'db_setup', :git => 'git://github.com/expectedbehavior/db_setup.git'
+plugin 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
+
+gsub_file 'app/controllers/application_controller.rb', /^(class ApplicationController.*)/, "\\1\n  include ExceptionNotifiable"
+
+emails = %w(joel michael matt jason).map {|n| "#{n}@expectedbehavior.com" }.join(" ")
+initializer "exception_notifier.rb", "ExceptionNotifier.exception_recipients = %w(#{emails})"
 
 # plugin 'rspec', :git => 'git://github.com/dchelimsky/rspec.git', :submodule => true
 # plugin 'rspec-rails', :git => 'git://github.com/dchelimsky/rspec-rails.git', :submodule => true

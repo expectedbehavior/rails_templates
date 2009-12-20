@@ -1,3 +1,5 @@
+require 'pwfoo'
+
 log "updating", "database.yml"
 
 # fix up database.yml
