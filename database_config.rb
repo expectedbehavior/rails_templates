@@ -1,3 +1,5 @@
+log "updating", "database.yml"
+
 # fix up database.yml
 gsub_file "config/database.yml", /password:/ do |match|
   pwd = PwFoo::GeneratePassword.new(16).generate_with_min_strength 80

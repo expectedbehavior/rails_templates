@@ -226,7 +226,7 @@ END
 
 require 'highline/import'
 pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false}
-log "running db_setup"
+log "running", "db_setup"
 run "script/db_setup -c --password #{pw}", false
 
 # # run migrations
