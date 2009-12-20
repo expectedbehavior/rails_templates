@@ -28,6 +28,8 @@ plugin "culerity", :git => "git://github.com/langalex/culerity.git"
 generate :cucumber
 generate :culerity, "-f"
 
+gsub_file "config/environments/culerity_devlopment.rb", /(config.cache_classes = )false/, '\1true'
+
 git :add => '.'
 git :commit => "-m 'basic cucumber and culerity'"
 
