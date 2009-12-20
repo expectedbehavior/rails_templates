@@ -46,6 +46,13 @@ gsub_file 'app/controllers/application_controller.rb', /#\s*(filter_parameter_lo
 
 load_template "http://github.com/expectedbehavior/rails_templates/raw/master/database_config.rb"
 
+plugin 'db_setup', :git => 'git://github.com/expectedbehavior/db_setup.git'
+
+require 'highline/import'
+pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false}
+log "running", "db_setup"
+run "script/db_setup -c --password #{pw}", false
+
 git :init
 git :add => '.'
 git :commit => "-m 'initial commit'"
@@ -57,13 +64,16 @@ git :commit => "-m 'initial commit'"
 # plugin 'restful-authentication', :git => 'git://github.com/technoweenie/restful-authentication.git'
 plugin 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 plugin 'haml', :git => 'git://github.com/nex3/haml.git'
-plugin 'db_setup', :git => 'git://github.com/expectedbehavior/db_setup.git'
 plugin 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
 
 gsub_file 'app/controllers/application_controller.rb', /^(class ApplicationController.*)/, "\\1\n  include ExceptionNotifiable"
 
 emails = %w(joel michael matt jason).map {|n| "#{n}@expectedbehavior.com" }.join(" ")
 initializer "exception_notifier.rb", "ExceptionNotifier.exception_recipients = %w(#{emails})"
+
+plugin 'bootstrapper', :git => 'git://github.com/sevenwire/bootstrapper.git'
+generate :bootstrapper
+gsub_file "db/bootstrap.rb", /^(Bootstrapper.for :test.*)/, "\\1\n  b.truncate_tables :all"
 
 # plugin 'rspec', :git => 'git://github.com/dchelimsky/rspec.git', :submodule => true
 # plugin 'rspec-rails', :git => 'git://github.com/dchelimsky/rspec-rails.git', :submodule => true
@@ -77,6 +87,8 @@ git :commit => "-m 'plugins'"
 
 # Install all gems
 gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => 'http://gems.github.com'
+gem 'cucumber', :env => "test"
+gem 'cucumber-rails', :env => "test"
 # gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
 
 # gem 'ruby-openid', :lib => 'openid'
@@ -87,9 +99,6 @@ rake('gems:install', :sudo => true)
 git :add => '.'
 git :commit => "-m 'gems'"
 
-# generate("authenticated", "user session --include-activation  --aasm")
-# git :add => '.'
-# git :commit => "-m 'user authentication'"
 
 load_template "http://github.com/expectedbehavior/rails_templates/raw/master/users.rb"
 
@@ -101,6 +110,7 @@ file "config/routes.rb", <<-END
 ActionController::Routing::Routes.draw do |map|
   map.login "login", :controller => "user_sessions", :action => "new"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
+  map.signup "signup", :controller => "users", :action => "new"
  
   map.resources :user_sessions
   map.resources :users
@@ -116,13 +126,118 @@ git :add => '.'
 git :commit => "-m 'initial routes'"
 
 
-require 'highline/import'
-pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false}
-log "running", "db_setup"
-run "script/db_setup -c --password #{pw}", false
-
 # # run migrations
 rake "db:migrate"
 
 git :add => '.'
 git :commit => "-m 'schema'"
+
+
+
+
+
+
+
+jruby_folder = "jruby-1.4.0"
+
+# need to figure out a real way to get jruby into vendor
+# work out jruby version number
+run "cp -r ~/Downloads/#{jruby_folder} vendor/"
+  
+gsub_file "config/environment.rb", /\A/, <<-END
+OSX_JAVA_HOME = "/System/Library/Frameworks/JavaVM.framework/Home"
+UBUNTU_JAVA_HOME = "/usr/lib/jvm/java-1.5.0-sun"
+
+if File.exists?(OSX_JAVA_HOME)
+  ENV["JAVA_HOME"] = OSX_JAVA_HOME
+elsif File.exists?(UBUNTU_JAVA_HOME)
+  ENV["JAVA_HOME"] = UBUNTU_JAVA_HOME
+end 
+
+ENV['PATH'] ||= ""
+ENV['PATH'] = ENV['PATH'] + ":" + File.join(File.dirname(__FILE__), '..', 'vendor', '#{jruby_folder}', 'bin')
+
+END
+
+file "cucumber.yml", <<-END
+default: --require features --require lib --guess
+END
+
+plugin "culerity", :git => "git://github.com/langalex/culerity.git"
+generate :cucumber
+generate :culerity, "-f"
+run "rm features/step_definitions/web_steps.rb"
+
+
+gsub_file "features/support/env.rb", /\Z/, <<-'END'
+
+require 'factory_girl'
+require "#{RAILS_ROOT}/test/factories.rb"
+require "#{RAILS_ROOT}/db/bootstrap.rb"
+
+require 'fileutils'
+FileUtils.touch "#{RAILS_ROOT}/tmp/restart.txt"
+
+@@cucumber_cli_test_number = 1
+
+Before do
+  puts "--- TEST ##{@@cucumber_cli_test_number} ---"
+  @@cucumber_cli_test_number += 1
+  Bootstrapper.run :test
+end
+
+def print_page_on_error(*args, &block)
+  begin
+    yield
+  rescue
+    open_current_html_in_browser_
+    raise
+  end
+end
+END
+
+file "test/factories.rb", <<-'END'
+Factory.define(:user) do |u|
+  u.sequence(:email) { |n| "email#{n}@example.com" }
+  u.name { "John Doe" }
+  u.password "password"
+  u.password_confirmation "password"
+end
+END
+
+file "features/login.feature", <<-END
+Feature: Logging in
+  In order to access the system
+  As a user
+  I want login to the system
+
+  @1 @shouldwork @happy_case
+  Scenario: Sign up and log into the system
+    Given I am on the signup page
+    When I fill in "Email" with "billy@example.com"
+    And I fill in "Password" with "secret"
+    And I fill in "Password confirmation" with "secret"
+    And I press "Submit"
+#     Then I should see "signup successful"
+    When I view the login page
+    And I fill in "Email" with "billy@example.com"
+    And I fill in "Password" with "secret"
+    And I press "Submit"
+    And I should see "Login successful!"
+END
+
+["common_celerity_steps.rb", "model_create_steps.rb"].each do |filename|
+  open "http://github.com/expectedbehavior/cucumber_culerity_step_definitions/raw/master/#{filename}" do |read_file|
+    open "features/step_definitions/#{filename}", "w" do |write_file|
+      write_file.write read_file.read
+    end
+  end
+end
+
+run "vendor/#{jruby_folder}/bin/jruby -S gem install celerity"
+
+gsub_file "features/support/paths.rb", /(case page_name.*)/, "\\1\n    when /the signup page/\n      signup_path\n"
+gsub_file "features/support/paths.rb", /(case page_name.*)/, "\\1\n    when /the login page/\n      login_path\n"
+
+flash_erb = %Q{<p style="color: green"><%= flash[:notice] %></p>}
+gsub_file "app/views/layouts/users.html.erb", /(#{Regexp.escape(flash_erb)})/, '<div>\1</div>'
