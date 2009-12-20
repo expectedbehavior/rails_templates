@@ -28,6 +28,7 @@ plugin "culerity", :git => "git://github.com/langalex/culerity.git"
 generate :cucumber
 generate :culerity, "-f"
 
+# cucumber warns you about transactional fixtures if you don't cache classes, and it doesn't matter to us, so switch it
 gsub_file "config/environments/culerity_devlopment.rb", /(config.cache_classes = )false/, '\1true'
 
 git :add => '.'
