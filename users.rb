@@ -1,6 +1,6 @@
 generate(:scaffold, "User", "email:string", "crypted_password:string", "password_salt:string", "persistence_token:string") 
 
-run "rm app/views/users/*.erb"
+run "rm app/views/users/{new,edit,index}.erb"
 
 file "app/views/users/index.haml", <<-END
 %h2 User List
