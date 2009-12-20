@@ -72,14 +72,14 @@ git :add => '.'
 git :commit => "-m 'cooler step definitions'"
 
 # make cucumber restart the passenger test instance on every run
-gsub_file "features/support/env.rb", /\Z/, <<-'END'
+append_file "features/support/env.rb", <<-'END'
 
 require 'fileutils'
 FileUtils.touch "#{RAILS_ROOT}/tmp/restart.txt"
 END
 
 # print the number of the test before running it so we get an idea of progress
-gsub_file "features/support/env.rb", /\Z/, <<-'END'
+append_file "features/support/env.rb", <<-'END'
 
 @@cucumber_cli_test_number = 1
 Before do
@@ -89,7 +89,7 @@ end
 END
 
 # run the 'test' bootstrap before each test
-gsub_file "features/support/env.rb", /\Z/, <<-'END'
+append_file "features/support/env.rb", <<-'END'
 
 require 'factory_girl'
 require "#{RAILS_ROOT}/test/factories.rb"
@@ -101,7 +101,7 @@ end
 END
 
 # add this handy method to let us print the current page when a step failes
-gsub_file "features/support/env.rb", /\Z/, <<-'END'
+append_file "features/support/env.rb", <<-'END'
 
 def print_page_on_error(*args, &block)
   begin
