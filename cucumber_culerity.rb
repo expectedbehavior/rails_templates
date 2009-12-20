@@ -58,8 +58,8 @@ git :add => '.'
 git :commit => "-m 'cucumber.yml'"
 
 # webrat steps conflict with culerity, and we've got cooler step defs than culerity comes with
-run "rm features/step_definitions/web_steps.rb"
-run "rm features/step_definitions/culerity_steps.rb"
+git :rm => "features/step_definitions/web_steps.rb"
+git :rm => "features/step_definitions/culerity_steps.rb"
 
 # drop in our step defs
 plugin "cucumber_culerity_step_definitions", :git => "git://github.com/expectedbehavior/cucumber_culerity_step_definitions.git"
