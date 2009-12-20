@@ -37,3 +37,6 @@ file "app/views/users/_form.haml", <<-END
   %p
     = f.submit "Submit"
 END
+
+git :add => '.'
+git :commit => "-m 'users'"

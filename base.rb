@@ -111,7 +111,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
 end
 END
- 
+
+git :add => '.'
+git :commit => "-m 'initial routes'"
+
 
 require 'highline/import'
 pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false}
@@ -120,3 +123,6 @@ run "script/db_setup -c --password #{pw}", false
 
 # # run migrations
 rake "db:migrate"
+
+git :add => '.'
+git :commit => "-m 'schema'"

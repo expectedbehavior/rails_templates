@@ -62,3 +62,6 @@ file "app/views/user_sessions/new.haml", <<-END
   %p
     = f.submit "Submit"
 END
+
+git :add => '.'
+git :commit => "-m 'authentication'"
