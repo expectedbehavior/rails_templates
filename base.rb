@@ -75,7 +75,7 @@ gsub_file 'app/controllers/application_controller.rb', /^(class ApplicationContr
 emails = %w(joel michael matt jason).map {|n| "#{n}@expectedbehavior.com" }.join(" ")
 initializer "exception_notifier.rb", "ExceptionNotifier.exception_recipients = %w(#{emails})"
 
-plugin 'bootstrapper', :git => 'git://github.com/sevenwire/bootstrapper.git'
+plugin 'bootstrapper', :git => 'git://github.com/expectedbehavior/bootstrapper.git'
 generate :bootstrapper
 gsub_file "db/bootstrap.rb", /^(Bootstrapper.for :test.*)/, "\\1\n  b.truncate_tables :all"
 
