@@ -31,3 +31,7 @@ gsub_file "config/database.yml", /(^\w+:|username:.*)/ do |match|
     match
   end
 end
+
+# find the right socket file for any system
+socket_erb = 'socket: <%= %w(/var/run/mysqld/mysqld.sock /tmp/mysql.sock /var/lib/mysql/mysql.sock).detect {|p| File.exist? p} %>'
+gsub_file "config/database.yml", /(socket:.*)/, socket_erb
