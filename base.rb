@@ -1,5 +1,8 @@
 # find easy way to force mysql
 
+require 'highline/import'
+HighLine.track_eof = false # workaround for pthread enabled systems
+
 if `which unzip`.blank?
   exit 0 unless ask("Couldn't find 'unzip' to unpack jruby, continue? [N,y]") =~ /y/i
 end
@@ -52,7 +55,6 @@ load_template "http://github.com/expectedbehavior/rails_templates/raw/master/dat
 
 plugin 'db_setup', :git => 'git://github.com/expectedbehavior/db_setup.git'
 
-require 'highline/import'
 pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false}
 log "running", "db_setup"
 run "script/db_setup -c --password #{pw}", false
