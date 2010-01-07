@@ -99,8 +99,9 @@ gem 'cucumber-rails', :env => "test"
 # gem 'sqlite3-ruby', :lib => 'sqlite3'
 # gem 'hpricot', :source => 'http://code.whytheluckystiff.net'
 # gem 'RedCloth', :lib => 'redcloth'
-rake('gems:install', :sudo => true)
-rake('gems:install', :env => "test", :sudo => true)
+install_gems_using_sudo = /[Yy]/ =~ HighLine.ask("install gems using sudo?[Yn]") {|q| q.default = 'Y'; q.validate = /[YyNn]/}
+rake('gems:install', :sudo => install_gems_using_sudo)
+rake('gems:install', :env => "test", :sudo => install_gems_using_sudo)
 git :add => '.'
 git :commit => "-m 'gems'"
 
