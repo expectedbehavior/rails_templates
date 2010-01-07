@@ -3,6 +3,7 @@ jruby_url = "http://jruby.kenai.com/downloads/1.4.0/jruby-bin-1.4.0.zip"
 zip_name = File.basename(jruby_url)
 jruby_folder = ""
 inside "vendor" do
+  puts "downloading jruby from #@jruby_url"
   open(jruby_url) do |remote_file|
     File.open(zip_name, "w") do |local_file|
       local_file.write remote_file.read
@@ -70,6 +71,19 @@ generate :cucumber_culerity_step_definitions, "-f"
 
 git :add => '.'
 git :commit => "-m 'cooler step definitions'"
+
+# setup cucumber dependencies
+append_file "features/support/env.rb", <<-'END'
+require 'database_cleaner'
+require 'database_cleaner/cucumber'
+DatabaseCleaner.strategy = :truncation
+
+require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
+require 'cucumber/rails/rspec'
+require 'cucumber/rails/world'
+require 'cucumber/rails/active_record'
+require 'cucumber/web/tableish'
+END
 
 # make cucumber restart the passenger test instance on every run
 append_file "features/support/env.rb", <<-'END'
