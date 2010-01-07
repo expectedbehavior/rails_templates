@@ -1,0 +1,60 @@
+INSTALLATION
+------------
+Clone this and run:
+rails -m /path/to/this/repo/base.rb
+-OR-
+run it from github:
+rails -m http://github.com/expectedbehavior/rails_templates/raw/master/base.rb
+
+
+WHAT DO YOU GET?
+----------------
+General
+* frozen copy of rails
+* lots of good plugins and gems you'll probably want (see below)
+* no annoying removing of the default files in public
+* a reasonably thorough .gitignore
+* password filtering enabled in logs
+* usernames and strong default passwords for your envs
+* setup your mysql socket with the one we find on your system
+* your db initialized and ready for use
+* exception notification setup and ready to be used (see Caveats)
+* scaffolded user, authentication, and routing for those, with views in haml and a cucumber test to make sure they work
+* culerity setup for immediate use
+* some really sweet step definitions for your cucumber tests
+* everything is committed to a new local git repo!
+
+Plugins installed
+* db_setup - adds a script to manage your environments' databases
+* authlogic - authentication
+* haml - awesome templating
+* exception_notification - email yourself when something bad happens in your app
+* bootstrapper - awesome db data loading helper
+* culerity - wrapper for jruby's celerity
+
+Gems installed
+* factory_girl - create data for testing via factory instead of fixture
+* cucumber - testing framework of doooom
+* cucumber-rails - testing framerwork helper of doooom
+* celerity - integration test with js support (built on htmlunit)(installed under jruby)
+
+Misc installed
+* jruby - we want to control the version
+
+Gems required
+* pwfoo - password generation
+* highline/import - terminal interaction
+
+Caveats
+* We use mysql, so this is built with that in mind.
+* Exception notifier is setup to email our company.  You probably don't want that!
+* we install jruby into the project directly for use with culerity.  This means installing will take a while, and your project is going to be really big when you clone it
+* Our test setup is pretty non-standard.  You should really check out cucumber_culerity and understand what it does before you run this.
+* You will need to have java 1.5 installed (for now).
+
+
+HOW DO I KNOW IT WORKED?
+------------------------
+After the app is done installing, run the following at the command line:
+cucumber features
+
