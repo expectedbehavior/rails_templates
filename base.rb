@@ -132,13 +132,16 @@ git :add => '.'
 git :commit => "-m 'initial routes'"
 
 
-# # run migrations
+# run migrations
 rake "db:migrate"
-rake "db:migrate", :env => "test"
 
 git :add => '.'
 git :commit => "-m 'schema'"
 
+# run migrations in test mode
+rake "db:migrate", :env => "test"
+git :add => '.'
+git :commit => "-m 'schema (test)'"
 
 load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
 
