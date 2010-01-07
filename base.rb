@@ -138,12 +138,12 @@ rake "db:migrate"
 git :add => '.'
 git :commit => "-m 'schema'"
 
+load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
+
 # run migrations in test mode
-rake "db:migrate", :env => "test"
+rake "db:test:prepare", :env => "test"
 git :add => '.'
 git :commit => "-m 'schema (test)'"
-
-load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
 
 run_cucumber_test = /[Yy]/ =~ HighLine.ask("run the cucumber test?[Yn]") {|q| q.default = 'Y'; q.validate = /[YyNn]/}
 run "cucumber features" if run_cucumber_test
