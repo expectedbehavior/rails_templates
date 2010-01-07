@@ -16,8 +16,9 @@ inside "vendor" do
   jruby_folder = Dir["jruby*"].first
 end
 
+# commit the 8bil files from jruby, quietly
 git :add => '.'
-git :commit => "-m 'jruby'"
+git :commit => "-q -m 'jruby'"
 
 # install celerity in jruby
 run "vendor/#{jruby_folder}/bin/jruby -S gem install celerity"
