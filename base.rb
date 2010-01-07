@@ -140,8 +140,9 @@ git :commit => "-m 'schema'"
 load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
 
 # run migrations in test mode
-rake "db:test:prepare", :env => "test"
+rake "db:test:clone_structure"
+rake "db:test:prepare"
 git :add => '.'
 git :commit => "-m 'schema (test)'"
 
-puts "To test, the following commands inside your new rails app's root dir:\n  rake culerity:rails:start\n  cucumber features"
+puts "\nTo test, the following commands inside your new rails app's root dir:\n  cucumber features"
