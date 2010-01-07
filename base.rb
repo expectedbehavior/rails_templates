@@ -63,8 +63,6 @@ git :add => '.'
 git :commit => "-q -m 'initial commit'"
 
 
-
-
 # Install submoduled plugins
 # plugin 'restful-authentication', :git => 'git://github.com/technoweenie/restful-authentication.git'
 plugin 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
@@ -146,5 +144,4 @@ rake "db:test:prepare", :env => "test"
 git :add => '.'
 git :commit => "-m 'schema (test)'"
 
-run_cucumber_test = /[Yy]/ =~ HighLine.ask("run the cucumber test?[Yn]") {|q| q.default = 'Y'; q.validate = /[YyNn]/}
-run "cucumber features" if run_cucumber_test
+puts "To test, the following commands inside your new rails app's root dir:\n  rake culerity:rails:start\n  cucumber features"
