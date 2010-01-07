@@ -90,7 +90,7 @@ git :add => '.'
 git :commit => "-m 'plugins'"
 
 # Install all gems
-gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => 'http://gems.github.com'
+gem "factory_girl", :source => "http://gemcutter.org"
 gem 'cucumber', :env => "test"
 gem 'cucumber-rails', :env => "test"
 # gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
