@@ -37,6 +37,7 @@ Gems installed
 * cucumber - testing framework of doooom
 * cucumber-rails - testing framerwork helper of doooom
 * celerity - integration test with js support (built on htmlunit)(installed under jruby)
+* database_cleaner - used by cucumber to do some stuff with active_record
 
 Misc installed
 * jruby - we want to control the version
@@ -46,7 +47,7 @@ Gems required
 * highline/import - terminal interaction
 
 Caveats
-* We use mysql, so this is built with that in mind.
+* We use mysql, so this is built with that in mind, though it's not required.
 * Exception notifier is setup to email our company.  You probably don't want that!
 * we install jruby into the project directly for use with culerity.  This means installing will take a while, and your project is going to be really big when you clone it
 * Our test setup is pretty non-standard.  You should really check out cucumber_culerity and understand what it does before you run this.
