@@ -51,7 +51,7 @@ Caveats
 * we install jruby into the project directly for use with culerity.  This means installing will take a while, and your project is going to be really big when you clone it
 * Our test setup is pretty non-standard.  You should really check out cucumber_culerity and understand what it does before you run this.
 * You will need to have java 1.5 installed (for now).
-
+* You'll need to have gemcutter setup as a gem source.
 
 HOW DO I KNOW IT WORKED?
 ------------------------
