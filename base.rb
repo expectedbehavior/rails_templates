@@ -57,9 +57,10 @@ pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false
 log "running", "db_setup"
 run "script/db_setup -c --password #{pw}", false
 
+#commit rails, quietly
 git :init
 git :add => '.'
-git :commit => "-m 'initial commit'"
+git :commit => "-q -m 'initial commit'"
 
 
 
