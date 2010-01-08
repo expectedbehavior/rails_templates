@@ -3,8 +3,19 @@
 require 'highline/import'
 HighLine.track_eof = false # workaround for pthread enabled systems
 
+# this allows an easy way of asking yes/no questions with a default (or other options as well)
+def agree_question( yes_or_no_question, character = nil )
+  HighLine.ask(yes_or_no_question, lambda { |yn| yn.downcase[0] == ?y}) do |q|
+    q.validate                 = /\Ay(?:es)?|no?\Z/i
+    q.responses[:not_valid]    = 'Please enter "yes" or "no".'
+    q.responses[:ask_on_error] = :question
+    q.character                = character
+    yield q if block_given?
+  end
+end
+
 if `which unzip`.blank?
-  exit 0 unless ask("Couldn't find 'unzip' to unpack jruby, continue? [N,y]") =~ /y/i
+  exit 0 unless agree_question("Couldn't find 'unzip' to unpack jruby, continue? [N,y]") { |q| q.default = "n" }
 end
 
 run "echo 'TODO' > README"
@@ -100,7 +111,7 @@ gem 'cucumber-rails', :env => "test"
 # gem 'sqlite3-ruby', :lib => 'sqlite3'
 # gem 'hpricot', :source => 'http://code.whytheluckystiff.net'
 # gem 'RedCloth', :lib => 'redcloth'
-install_gems_using_sudo = nil != (/[Yy]/ =~ HighLine.ask("install gems using sudo?[Yn]") {|q| q.default = 'Y'; q.validate = /[YyNn]/})
+install_gems_using_sudo = agree_question("install gems using sudo?[Yn]") {|q| q.default = 'Y'}
 rake('gems:install', :sudo => install_gems_using_sudo)
 rake('gems:install', :env => "test", :sudo => install_gems_using_sudo)
 git :add => '.'
@@ -147,4 +158,4 @@ rake "db:test:prepare"
 git :add => '.'
 git :commit => "-m 'schema (test)'"
 
-puts "\nTo test, the following commands inside your new rails app's root dir:\n  cucumber features"
+print "\nTo test, run the following commands inside your new rails app's root dir:\n  cucumber features\n\n"
