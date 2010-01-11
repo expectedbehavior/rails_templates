@@ -80,6 +80,7 @@ git :commit => "-q -m 'initial commit'"
 # plugin 'restful-authentication', :git => 'git://github.com/technoweenie/restful-authentication.git'
 plugin 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 plugin 'haml', :git => 'git://github.com/nex3/haml.git'
+plugin 'jrails', :git => 'git://github.com/aaronchi/jrails.git'
 plugin 'exception_notification', :git => 'git://github.com/rails/exception_notification.git'
 
 gsub_file 'app/controllers/application_controller.rb', /^(class ApplicationController.*)/, "\\1\n  include ExceptionNotifiable"
