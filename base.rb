@@ -114,6 +114,7 @@ gem 'cucumber-rails', :env => "test"
 install_gems_using_sudo = agree_question("install gems using sudo?[Yn]") {|q| q.default = 'Y'}
 rake('gems:install', :sudo => install_gems_using_sudo)
 rake('gems:install', :env => "test", :sudo => install_gems_using_sudo)
+rake('gems:install', :env => "cucumber", :sudo => install_gems_using_sudo)
 git :add => '.'
 git :commit => "-m 'gems'"
 
