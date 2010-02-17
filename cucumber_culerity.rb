@@ -157,7 +157,7 @@ file "features/login.feature", <<-END
 Feature: Logging in
   In order to access the system
   As a user
-  I want login to the system
+  I want to login to the system
 
   @1 @shouldwork @happy_case
   Scenario: Sign up and log into the system
