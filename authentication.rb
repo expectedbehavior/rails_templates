@@ -3,6 +3,8 @@ generate(:controller, "user_sessions")
 
 gsub_file "app/models/user.rb", /^(class User.*)/, "\\1\n  acts_as_authentic"
 
+gsub_file "app/controllers/application_controller.rb", /^(class ApplicationController < ActionController::Base.*)/, "\\1\n  helper_method :current_user_session, :current_user"
+
 gsub_file "app/controllers/application_controller.rb", /end\s*\Z/m, <<-END
 
   private
