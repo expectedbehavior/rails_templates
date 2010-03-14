@@ -52,12 +52,15 @@ config/*.sphinx.conf
 db/*sphinx
 log/*.pid
 log/culerity_page_errors
+public/culerity_page_errors
 public/javascripts/all.js
 public/stylesheets/all.css
 public/images/upload
 public/data
 *.LCK
 .sass-cache
+public/stylesheets/*.css
+!public/stylesheets/scaffold.css
 END
 
 gsub_file 'app/controllers/application_controller.rb', /#\s*(filter_parameter_logging :password)/, '\1'
