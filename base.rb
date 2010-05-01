@@ -1,3 +1,25 @@
+# puts "template #{template}"
+# require File.join(File.expand_path(File.dirname(template), File.join(root,'..')), '../template_helpers')
+# puts "file #{__FILE__}"
+# puts File.expand_path(File.dirname(__FILE__))
+# puts ""
+load_template "#{File.dirname(template)}/template_helpers.rb"
+#include TemplateHelpers
+
+
+ensure_required_gem "pwfoo"
+
+
+def announce(text)
+  puts ""
+  puts "==================================="
+  puts "=== #{text}"
+  puts "==================================="
+  puts ""
+end
+
+
+
 # find easy way to force mysql
 
 require 'highline/import'
@@ -23,7 +45,7 @@ run "rm public/index.html"
 run "rm public/favicon.ico"
 run "rm public/robots.txt"
 
-# Freeze!
+announce("Freeze!")
 rake "rails:freeze:gems"
 
 # Set up git repository
