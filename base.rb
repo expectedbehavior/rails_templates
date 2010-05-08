@@ -1,3 +1,4 @@
+TEMPLATE_ROOT = File.dirname(template)
 load_template "#{File.dirname(template)}/template_helpers.rb"
 announce("Loading helpers")
 
