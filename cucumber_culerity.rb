@@ -9,7 +9,8 @@ jruby_folder = ""
 # require 'ruby-debug'
 # debugger
 
-jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
+# jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
+jruby_template_path   = "./vendor/jruby-bin-1.4.0.zip"
 puts jruby_template_path
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
