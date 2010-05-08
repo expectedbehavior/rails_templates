@@ -1,26 +1,33 @@
 # get and unpack jruby into vendor
-jruby_url = "http://jruby.kenai.com/downloads/1.4.0/jruby-bin-1.4.0.zip"
-zip_name = File.basename(jruby_url)
+
+#jruby_url = "http://jruby.kenai.com/downloads/1.4.0/jruby-bin-1.4.0.zip"
+#zip_name = File.basename(jruby_url)
+zip_name = "jruby-bin-1.4.0.zip"
 jruby_folder = ""
+
+yes? "foo"
+
+jruby_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
 inside "vendor" do
-  puts "downloading jruby from #{jruby_url}"
-  open(jruby_url) do |remote_file|
+# puts "downloading jruby from #{jruby_url}"
+#  open(jruby_path) do |remote_file|
     File.open(zip_name, "w") do |local_file|
       local_file.write remote_file.read
     end
-  end
+#  end
   
-  run "unzip #{zip_name}"
+  run "unzip #{jruby_path}"
   run "rm #{zip_name}"
   
   jruby_folder = Dir["jruby*"].first
 end
 
-# commit the 8bil files from jruby, quietly
+
+announce("commit the 8bil files from jruby, quietly")
 git :add => '.'
 git :commit => "-q -m 'jruby'"
 
-# install celerity in jruby
+announce("install celerity in jruby")
 run "vendor/#{jruby_folder}/bin/jruby -S gem install celerity"
 
 git :add => '.'

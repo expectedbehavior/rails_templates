@@ -1,54 +1,29 @@
-# puts "template #{template}"
-# require File.join(File.expand_path(File.dirname(template), File.join(root,'..')), '../template_helpers')
-# puts "file #{__FILE__}"
-# puts File.expand_path(File.dirname(__FILE__))
-# puts ""
 load_template "#{File.dirname(template)}/template_helpers.rb"
-#include TemplateHelpers
+announce("Loading helpers")
 
 
+ensure_required_gem "highline"
 ensure_required_gem "pwfoo"
-
-
-def announce(text)
-  puts ""
-  puts "==================================="
-  puts "=== #{text}"
-  puts "==================================="
-  puts ""
-end
-
+ensure_required_command "unzip"
 
 
 # find easy way to force mysql
 
-require 'highline/import'
-HighLine.track_eof = false # workaround for pthread enabled systems
 
-# this allows an easy way of asking yes/no questions with a default (or other options as well)
-def agree_question( yes_or_no_question, character = nil )
-  HighLine.ask(yes_or_no_question, lambda { |yn| yn.downcase[0] == ?y}) do |q|
-    q.validate                 = /\Ay(?:es)?|no?\Z/i
-    q.responses[:not_valid]    = 'Please enter "yes" or "no".'
-    q.responses[:ask_on_error] = :question
-    q.character                = character
-    yield q if block_given?
-  end
-end
+# if `which unzip`.blank?
+#   exit 0 unless agree_question("Couldn't find 'unzip' to unpack jruby, continue? [N,y]") { |q| q.default = "n" }
+# end
 
-if `which unzip`.blank?
-  exit 0 unless agree_question("Couldn't find 'unzip' to unpack jruby, continue? [N,y]") { |q| q.default = "n" }
-end
-
+announce("Removing default files we don't want")
 run "echo 'TODO' > README"
 run "rm public/index.html"
 run "rm public/favicon.ico"
 run "rm public/robots.txt"
 
-announce("Freeze!")
+announce("Freeze Rails into the project")
 rake "rails:freeze:gems"
 
-# Set up git repository
+announce("Set up git repository")
 run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
 run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
 file '.gitignore', <<-END
@@ -106,16 +81,20 @@ git :commit => "-q -m 'initial commit'"
 plugin 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 plugin 'haml', :git => 'git://github.com/nex3/haml.git'
 plugin 'jrails', :git => 'git://github.com/aaronchi/jrails.git'
-plugin 'exception_notification', :git => 'git://github.com/expectedbehavior/exception_notification.git'
 
-gsub_file 'app/controllers/application_controller.rb', /^(class ApplicationController.*)/, "\\1\n  include ExceptionNotifiable"
+add_plugin_with_setup('exception_notification', 
+                      :git => 'git://github.com/expectedbehavior/exception_notification.git') do 
+  gsub_file 'app/controllers/application_controller.rb', /^(class ApplicationController.*)/, "\\1\n  include ExceptionNotifiable"
+  emails = %w(joel michael matt jason).map {|n| "#{n}@expectedbehavior.com" }.join(" ")
+  initializer "exception_notifier.rb", "ExceptionNotifier.exception_recipients = %w(#{emails})"
+end
 
-emails = %w(joel michael matt jason).map {|n| "#{n}@expectedbehavior.com" }.join(" ")
-initializer "exception_notifier.rb", "ExceptionNotifier.exception_recipients = %w(#{emails})"
 
-plugin 'bootstrapper', :git => 'git://github.com/expectedbehavior/bootstrapper.git'
-generate :bootstrapper
-gsub_file "db/bootstrap.rb", /^(Bootstrapper.for :test.*)/, "\\1\n  b.truncate_tables :all"
+add_plugin_with_setup('bootstrapper', 
+                      :git => 'git://github.com/expectedbehavior/bootstrapper.git') do
+  generate :bootstrapper
+  gsub_file "db/bootstrap.rb", /^(Bootstrapper.for :test.*)/, "\\1\n  b.truncate_tables :all"
+end
 
 # plugin 'rspec', :git => 'git://github.com/dchelimsky/rspec.git', :submodule => true
 # plugin 'rspec-rails', :git => 'git://github.com/dchelimsky/rspec-rails.git', :submodule => true
@@ -127,7 +106,7 @@ gsub_file "db/bootstrap.rb", /^(Bootstrapper.for :test.*)/, "\\1\n  b.truncate_t
 git :add => '.'
 git :commit => "-m 'plugins'"
 
-# Install all gems
+announce("Install all gems")
 gem "factory_girl", :source => "http://gemcutter.org"
 gem 'cucumber', :env => "test"
 gem 'cucumber-rails', :env => "test"
@@ -171,7 +150,7 @@ git :add => '.'
 git :commit => "-m 'initial routes'"
 
 
-# run migrations
+announce("run migrations")
 rake "db:migrate"
 
 git :add => '.'
