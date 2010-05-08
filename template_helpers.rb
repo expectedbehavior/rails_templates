@@ -1,3 +1,15 @@
+######################################
+# Set valuable constants
+######################################
+# puts "#{File.dirname(__FILE__)}"
+# puts "#{File.expand_path(File.dirname(__FILE__))}"
+# File.dirname(File.expand_path(__FILE__))
+# puts TEMPLATE_ROOT
+# puts jruby_template_path
+
+
+
+
 # puts "evaluating template helper template"
 
 
