@@ -5,6 +5,7 @@
 zip_name = "jruby-bin-1.4.0.zip"
 jruby_folder = ""
 
+require 'rubygems'
 require 'ruby-debug'
 debugger
 
