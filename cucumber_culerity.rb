@@ -10,7 +10,7 @@ jruby_folder = ""
 # debugger
 
 # jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
-jruby_template_path   = "./vendor/jruby-bin-1.4.0.zip"
+jruby_template_path   = "#{File.expand_path(File.dirname(__FILE__))}/vendor/jruby-bin-1.4.0.zip"
 puts "#{File.dirname(__FILE__)}"
 puts "#{File.expand_path(File.dirname(__FILE__))}"
 puts jruby_template_path
