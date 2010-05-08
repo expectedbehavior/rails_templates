@@ -11,6 +11,7 @@ jruby_folder = ""
 
 # jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
 jruby_template_path   = "./vendor/jruby-bin-1.4.0.zip"
+puts "#{File.dirname(__FILE__)}"
 puts jruby_template_path
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
