@@ -10,11 +10,11 @@ yes? "foo"
 jruby_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
-#  open(jruby_path) do |remote_file|
+  open(jruby_path) do |remote_file|
     File.open(zip_name, "w") do |local_file|
       local_file.write remote_file.read
     end
-#  end
+  end
   
   run "unzip #{jruby_path}"
   run "rm #{zip_name}"
