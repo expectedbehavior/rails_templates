@@ -10,6 +10,7 @@ jruby_folder = ""
 # debugger
 
 jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
+puts jruby_template_path
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
   FileUtils.copy_file(jruby_template_path, ".")
