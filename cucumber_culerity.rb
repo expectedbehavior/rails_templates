@@ -18,7 +18,7 @@ puts TEMPLATE_ROOT
 puts jruby_template_path
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
-  FileUtils.copy_file(jruby_template_path, ".")
+  FileUtils.copy_file(jruby_template_path, "./#{zip_name}")
 
 #   open(jruby_path) do |remote_file|
 #     File.open(zip_name, "w") do |local_file|
