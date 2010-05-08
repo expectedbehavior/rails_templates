@@ -7,16 +7,18 @@ jruby_folder = ""
 
 yes? "foo"
 
-jruby_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
+jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
-  open(jruby_path) do |remote_file|
-    File.open(zip_name, "w") do |local_file|
-      local_file.write remote_file.read
-    end
-  end
+  FileUtils.copy_file(jruby_template_path, ".")
+
+#   open(jruby_path) do |remote_file|
+#     File.open(zip_name, "w") do |local_file|
+#       local_file.write remote_file.read
+#     end
+#   end
   
-  run "unzip #{jruby_path}"
+  run "unzip #{zip_name}"
   run "rm #{zip_name}"
   
   jruby_folder = Dir["jruby*"].first
