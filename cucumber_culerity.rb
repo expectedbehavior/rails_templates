@@ -11,11 +11,6 @@ jruby_folder = ""
 
 # jruby_template_path   = "#{File.dirname(template)}/vendor/jruby-bin-1.4.0.zip"
 jruby_template_path   = "#{TEMPLATE_ROOT}/vendor/jruby-bin-1.4.0.zip"
-# puts "#{File.dirname(__FILE__)}"
-# puts "#{File.expand_path(File.dirname(__FILE__))}"
-# File.dirname(File.expand_path(__FILE__))
-# puts TEMPLATE_ROOT
-# puts jruby_template_path
 
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
@@ -49,7 +44,7 @@ generate :cucumber
 generate :culerity, "-f"
 
 # cucumber warns you about transactional fixtures if you don't cache classes, and it doesn't matter to us, so switch it
-gsub_file "config/environments/culerity.rb", /(config.cache_classes = )false/, '\1true'
+gsub_file "config/environments/test.rb", /(config.cache_classes = )false/, '\1true'
 
 git :add => '.'
 git :commit => "-m 'basic cucumber and culerity'"
