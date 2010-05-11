@@ -40,11 +40,18 @@ git :add => '.'
 git :commit => "-m 'celerity installed in jruby'"
 
 plugin "culerity", :git => "git://github.com/langalex/culerity.git"
+
+ensure_required_gem "rspec-rails" # otherwise cucumber complains about spec/expectations
+ensure_required_gem "database_cleaner"
+ensure_required_gem "capybara"
+initializer "capybara.rb", "Capybara.default_driver = :culerity"
+
 generate :cucumber
+
 generate :culerity, "-f"
 
 # cucumber warns you about transactional fixtures if you don't cache classes, and it doesn't matter to us, so switch it
-gsub_file "config/environments/test.rb", /(config.cache_classes = )false/, '\1true'
+gsub_file "config/environments/culerity.rb", /(config.cache_classes = )false/, '\1true'
 
 git :add => '.'
 git :commit => "-m 'basic cucumber and culerity'"
