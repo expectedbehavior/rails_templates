@@ -44,7 +44,7 @@ plugin "culerity", :git => "git://github.com/langalex/culerity.git"
 ensure_required_gem "rspec-rails" # otherwise cucumber complains about spec/expectations
 ensure_required_gem "database_cleaner"
 ensure_required_gem "capybara"
-initializer "capybara.rb", "require 'capybara/rails'\r\nrequire 'capybara/cucumber'\r\nCapybara.default_driver = :culerity"
+initializer "capybara.rb", "require 'capybara/rails'\r\nCapybara.default_driver = :culerity"
 
 generate :cucumber
 
