@@ -1,5 +1,5 @@
 TEMPLATE_ROOT = File.dirname(template)
-load_template "#{File.dirname(template)}/template_helpers.rb"
+load_template "#{TEMPLATE_ROOT}/template_helpers.rb"
 announce("Loading helpers")
 
 ensure_required_gem "highline"

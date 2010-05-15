@@ -14,7 +14,13 @@ jruby_template_path   = "#{TEMPLATE_ROOT}/vendor/jruby-bin-1.4.0.zip"
 
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
-  FileUtils.copy_file(jruby_template_path, "./#{zip_name}")
+#   FileUtils.copy_file(jruby_template_path, "./#{zip_name}")
+
+  open(jruby_template_path) do |remote_file|
+    File.open(zip_name, "w") do |local_file|
+      local_file.write remote_file.read
+    end
+  end
 
 #   open(jruby_path) do |remote_file|
 #     File.open(zip_name, "w") do |local_file|
