@@ -1,8 +1,7 @@
 puts "NOTE::::::: This only work if you run it locally. Don't run it from GH."
 TEMPLATE_ROOT = File.dirname(template)
-load_template "#{File.dirname(template)}/template_helpers.rb"
+load_template "#{TEMPLATE_ROOT}/template_helpers.rb"
 announce("Loading helpers")
-
 
 ensure_required_gem "highline"
 ensure_required_gem "pwfoo"
@@ -108,8 +107,12 @@ end
 git :add => '.'
 git :commit => "-m 'plugins'"
 
+announce("setup session key")
+environment %Q{ config.action_controller.session = { :session_key => "_#{File.basename(File.expand_path(root))}_session", :secret => "0123456789012345678901234567890" }}
+
 announce("Install all gems")
 gem "factory_girl", :source => "http://gemcutter.org"
+gem 'capybara'
 gem 'cucumber', :env => "test"
 gem 'cucumber-rails', :env => "test"
 # gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"

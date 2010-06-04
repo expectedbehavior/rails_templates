@@ -14,7 +14,13 @@ jruby_template_path   = "#{TEMPLATE_ROOT}/vendor/jruby-bin-1.4.0.zip"
 
 inside "vendor" do
 # puts "downloading jruby from #{jruby_url}"
-  FileUtils.copy_file(jruby_template_path, "./#{zip_name}")
+#   FileUtils.copy_file(jruby_template_path, "./#{zip_name}")
+
+  open(jruby_template_path) do |remote_file|
+    File.open(zip_name, "w") do |local_file|
+      local_file.write remote_file.read
+    end
+  end
 
 #   open(jruby_path) do |remote_file|
 #     File.open(zip_name, "w") do |local_file|
@@ -44,7 +50,7 @@ plugin "culerity", :git => "git://github.com/langalex/culerity.git"
 ensure_required_gem "rspec-rails" # otherwise cucumber complains about spec/expectations
 ensure_required_gem "database_cleaner"
 ensure_required_gem "capybara"
-initializer "capybara.rb", "Capybara.default_driver = :culerity"
+initializer "capybara.rb", "require 'capybara/rails'\r\nCapybara.default_driver = :culerity"
 
 generate :cucumber
 
