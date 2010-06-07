@@ -112,8 +112,8 @@ environment %Q{ config.action_controller.session = { :session_key => "_#{File.ba
 announce("Install all gems")
 gem "factory_girl", :source => "http://gemcutter.org"
 gem 'capybara'
-gem 'cucumber', :env => "test"
-gem 'cucumber-rails', :env => "test"
+# gem 'cucumber', :env => "test"
+# gem 'cucumber-rails', :env => "test"
 # gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
 
 # gem 'ruby-openid', :lib => 'openid'
