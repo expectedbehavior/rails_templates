@@ -107,7 +107,9 @@ git :add => '.'
 git :commit => "-m 'plugins'"
 
 announce("setup session key")
-environment %Q{ config.action_controller.session = { :session_key => "_#{File.basename(File.expand_path(root))}_session", :secret => "0123456789012345678901234567890" }}
+
+secret_ = `rake -s secret`
+environment %Q{\n  config.action_controller.session = { :session_key => "_#{File.basename(File.expand_path(root))}_session", :secret => '#{secret_.strip}'}}
 
 announce("Install all gems")
 gem "factory_girl", :source => "http://gemcutter.org"
