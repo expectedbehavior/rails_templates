@@ -1,5 +1,3 @@
-puts "===="
-puts template
 TEMPLATE_ROOT = File.dirname(template)
 load_template "#{TEMPLATE_ROOT}/template_helpers.rb"
 announce("Loading helpers")
