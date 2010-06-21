@@ -1,3 +1,5 @@
+puts "===="
+puts template
 TEMPLATE_ROOT = File.dirname(template)
 load_template "#{TEMPLATE_ROOT}/template_helpers.rb"
 announce("Loading helpers")
@@ -111,6 +113,8 @@ announce("setup session key")
 secret_ = `rake -s secret`
 environment %Q{\n  config.action_controller.session = { :session_key => "_#{File.basename(File.expand_path(root))}_session", :secret => '#{secret_.strip}'}}
 
+load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
+
 announce("Install all gems")
 gem "factory_girl", :source => "http://gemcutter.org"
 gem 'capybara'
@@ -161,8 +165,6 @@ rake "db:migrate"
 
 git :add => '.'
 git :commit => "-m 'schema'"
-
-load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
 
 # run migrations in test mode
 rake "db:test:clone_structure"
