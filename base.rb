@@ -108,13 +108,17 @@ git :add => '.'
 git :commit => "-m 'plugins'"
 
 announce("setup session key")
-environment %Q{ config.action_controller.session = { :session_key => "_#{File.basename(File.expand_path(root))}_session", :secret => "0123456789012345678901234567890" }}
+
+secret_ = `rake -s secret`
+environment %Q{\n  config.action_controller.session = { :session_key => "_#{File.basename(File.expand_path(root))}_session", :secret => '#{secret_.strip}'}}
+
+load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
 
 announce("Install all gems")
 gem "factory_girl", :source => "http://gemcutter.org"
 gem 'capybara'
-gem 'cucumber', :env => "test"
-gem 'cucumber-rails', :env => "test"
+# gem 'cucumber', :env => "test"
+# gem 'cucumber-rails', :env => "test"
 # gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
 
 # gem 'ruby-openid', :lib => 'openid'
@@ -160,8 +164,6 @@ rake "db:migrate"
 
 git :add => '.'
 git :commit => "-m 'schema'"
-
-load_template "http://github.com/expectedbehavior/rails_templates/raw/master/cucumber_culerity.rb"
 
 # run migrations in test mode
 rake "db:test:clone_structure"
