@@ -140,19 +140,6 @@ Before do
 end
 END
 
-# add this handy method to let us print the current page when a step failes
-append_file "features/support/env.rb", <<-'END'
-
-def print_page_on_error(*args, &block)
-  begin
-    yield
-  rescue
-    open_current_html_in_browser_
-    raise
-  end
-end
-END
-
 git :add => '.'
 git :commit => "-m 'add handy stuff to cucumber env.rb'"
 
