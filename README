@@ -2,9 +2,8 @@ INSTALLATION
 ------------
 Clone this and run:
 rails -m /path/to/this/repo/base.rb
--OR-
-run it from github:
-rails -m http://github.com/expectedbehavior/rails_templates/raw/master/base.rb
+
+DO NOT RUN THIS FROM GITHUB. IT WILL NOT WORK.
 
 
 WHAT DO YOU GET?
