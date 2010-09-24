@@ -1,3 +1,4 @@
+puts "NOTE::::::: This only work if you run it locally. Don't run it from GH."
 TEMPLATE_ROOT = File.dirname(template)
 load_template "#{TEMPLATE_ROOT}/template_helpers.rb"
 announce("Loading helpers")
