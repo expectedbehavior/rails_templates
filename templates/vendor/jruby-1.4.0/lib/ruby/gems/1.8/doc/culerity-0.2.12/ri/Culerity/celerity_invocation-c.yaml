@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Culerity::celerity_invocation
+is_singleton: true
+name: celerity_invocation
+params: ()
+visibility: public

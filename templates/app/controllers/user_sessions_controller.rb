@@ -1,4 +1,7 @@
 class UserSessionsController < ApplicationController
+  
+  skip_before_filter :require_user
+  skip_after_filter  :store_location, :only => [:destroy]
 
   def new
     @user_session = UserSession.new

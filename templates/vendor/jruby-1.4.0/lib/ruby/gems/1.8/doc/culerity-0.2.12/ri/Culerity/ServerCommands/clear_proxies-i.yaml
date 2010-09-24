@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Culerity::ServerCommands#clear_proxies
+is_singleton: false
+name: clear_proxies
+params: ()
+visibility: public

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Culerity::ServerCommands#exit_server
+is_singleton: false
+name: exit_server
+params: ()
+visibility: public

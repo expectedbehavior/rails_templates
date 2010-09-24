@@ -24,6 +24,10 @@ class InstallCulerity < TemplateSegment
 
     # cucumber warns you about transactional fixtures if you don't cache classes, and it doesn't matter to us, so switch it
     self.gsub_file "config/environments/culerity.rb", /(config.cache_classes = )false/, '\1true'
+    
+    # get rid of those gem lines, we are on bundler
+    self.gsub_file "config/environments/culerity.rb", /config.gem/, "# config.gem"
+    self.gsub_file "config/environments/cucumber.rb", /config.gem/, "# config.gem"
   end
   
 end

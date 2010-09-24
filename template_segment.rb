@@ -46,12 +46,12 @@ class TemplateSegment
   
   def gsub_after(regexp, path)
     File.dirname(path)
-    self.runner.send(:gsub_file, File.dirname(path), regexp, "\\1\n\n#{File.read(File.join(self.templates_path, path))}")
+    self.gsub_file File.dirname(path), regexp, "\\1\n\n#{File.read(File.join(self.templates_path, path))}"
   end
   
   def gsub_before(regexp, path)
     File.dirname(path)
-    self.runner.send(:gsub_file, File.dirname(path), regexp, "#{File.read(File.join(self.templates_path, path))}\n\n\\1")
+    self.gsub_file File.dirname(path), regexp, "#{File.read(File.join(self.templates_path, path))}\n\n\\1"
   end
   
   #can't just delegate this, it is a protected method

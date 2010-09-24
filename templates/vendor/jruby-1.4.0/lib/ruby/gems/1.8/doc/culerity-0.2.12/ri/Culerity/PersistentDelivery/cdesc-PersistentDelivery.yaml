@@ -1,0 +1,24 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+  - !ruby/object:RI::MethodSummary 
+    name: clear_deliveries
+  - !ruby/object:RI::MethodSummary 
+    name: deliveries
+  - !ruby/object:RI::MethodSummary 
+    name: included
+comment: 
+constants: 
+  - !ruby/object:RI::Constant 
+    comment: 
+    name: DELIVERIES_PATH
+    value: File.join(RAILS_ROOT, 'tmp', 'action_mailer_acceptance_deliveries.cache')
+full_name: Culerity::PersistentDelivery
+includes: []
+
+instance_methods: 
+  - !ruby/object:RI::MethodSummary 
+    name: perform_delivery_persistent
+name: PersistentDelivery
+superclass: 

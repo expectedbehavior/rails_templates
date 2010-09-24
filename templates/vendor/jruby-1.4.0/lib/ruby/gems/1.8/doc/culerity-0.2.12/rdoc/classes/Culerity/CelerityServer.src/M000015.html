@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Culerity::CelerityServer)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/culerity/celerity_server.rb, line 8</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">_in</span>, <span class="ruby-identifier">_out</span>)
+      <span class="ruby-ivar">@proxies</span> = {}
+      <span class="ruby-ivar">@browsers</span> = []
+
+      <span class="ruby-keyword kw">while</span>(<span class="ruby-keyword kw">true</span>)
+        <span class="ruby-identifier">call</span>, <span class="ruby-identifier">block</span> = <span class="ruby-identifier">eval</span> <span class="ruby-identifier">_in</span>.<span class="ruby-identifier">gets</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">call</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;_exit_&quot;</span>
+        <span class="ruby-keyword kw">next</span>(<span class="ruby-identifier">close_browsers</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">call</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;_close_browsers_&quot;</span>
+        <span class="ruby-keyword kw">next</span>(<span class="ruby-identifier">clear_proxies</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">call</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;_clear_proxies_&quot;</span>
+        
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">call</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-identifier">result</span> = <span class="ruby-identifier">target</span>(<span class="ruby-identifier">call</span>.<span class="ruby-identifier">first</span>).<span class="ruby-identifier">send</span> <span class="ruby-identifier">call</span>[<span class="ruby-value">1</span>], <span class="ruby-operator">*</span><span class="ruby-identifier">call</span>[<span class="ruby-value">2</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>], <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+            <span class="ruby-identifier">_out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;[:return, #{proxify result}]\n&quot;</span>
+          <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+            <span class="ruby-identifier">_out</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;[:exception, \&quot;#{e.class.name}\&quot;, #{e.message.inspect}, #{e.backtrace.inspect}]\n&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">end</span>
+      
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

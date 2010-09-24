@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Culerity::jruby_invocation=
+is_singleton: true
+name: jruby_invocation=
+params: (invocation)
+visibility: public

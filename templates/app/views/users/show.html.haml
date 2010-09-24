@@ -1,0 +1,14 @@
+%p
+  Email: 
+  %br
+  = @user.email
+%p
+  First Name: 
+  %br
+  = @user.first_name
+%p
+  Last Name:
+  %br
+  = @user.last_name
+
+= link_to "Edit", [:edit, @user]
