@@ -1,0 +1,18 @@
+EMAIL_FROM_ADDRESS = "<%= email_from_address %>"
+
+Haml::Template::options[:ugly] = true
+Sass::Plugin.options[:full_exception] = true
+
+# patch string to have a good underscoring method
+require File.join("#{RAILS_ROOT}/lib", 'patches/string')
+require File.join("#{RAILS_ROOT}/lib", 'patches/array')
+
+ActiveResource::Base.logger = ActiveRecord::Base.logger
+
+module Exceptional
+  class Config
+    class << self
+      DEFAULTS[:disabled_by_default] = %w(development test cucumber culerity)
+    end
+  end
+end

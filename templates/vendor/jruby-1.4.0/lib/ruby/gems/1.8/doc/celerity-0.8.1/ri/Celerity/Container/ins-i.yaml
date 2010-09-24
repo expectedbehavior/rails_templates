@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Celerity::Ins]"
+full_name: Celerity::Container#ins
+is_singleton: false
+name: ins
+params: (*args)
+visibility: public
