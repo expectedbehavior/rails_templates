@@ -16,11 +16,11 @@ class SetupGit < TemplateSegment
     "initial commit"
   end
   
-  def run
-    self.runner.run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
-    self.runner.run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
+  def run_segment
+    self.run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
+    self.run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
     self.copy_file("gitignore", '.gitignore')
-    self.runner.git :init
+    self.git :init
   end
   
 end

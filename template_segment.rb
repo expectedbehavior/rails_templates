@@ -1,4 +1,9 @@
+require 'highline/import'
+
 class TemplateSegment
+  extend Forwardable
+  
+  def_delegators :runner, :run, :git, :plugin, :environment, :route, :generate
   
   attr_accessor :runner
   
@@ -6,8 +11,32 @@ class TemplateSegment
     self.runner = template_runner
   end
   
+  def required?
+    false
+  end
+  
+  def bail_if_skipped?
+    false
+  end
+  
+  def run_segment
+    raise "Must define 'run_segment' method in your segment"
+  end
+  
+  def question
+    raise "Must define 'question' method in your segment if the segment is not required"
+  end
+  
+  def default
+    'y'
+  end
+  
   def templates_path
-    TemplateSegment.templates_path
+    @@templates_path
+  end
+  
+  def app_name
+    File.basename(FileUtils.pwd)
   end
   
   def copy_file(path, dest_path = nil)
@@ -25,19 +54,25 @@ class TemplateSegment
     self.runner.send(:gsub_file, File.dirname(path), regexp, "#{File.read(File.join(self.templates_path, path))}\n\\1")
   end
   
+  #can't just delegate this, it is a protected method
+  def gsub_file(*args, &block)
+    self.runner.send(:gsub_file, *args, &block)
+  end
+  
+  #can't just delegate this, it is a protected method
+  def append_file(*args, &block)
+    self.runner.send(:append_file, *args, &block)
+  end
+  
   def self.templates_path=(value)
     @@templates_path = value
   end
   
-  def self.templates_path
-    @@templates_path
-  end
-  
-  def self.announce(text)
+  def self.announce(text, lines = :both)
     puts ""
-    puts "==================================="
+    puts "===================================" unless lines == :bottom
     puts "=== #{text}"
-    puts "==================================="
+    puts "===================================" unless lines == :top
     puts ""
   end
   
@@ -66,15 +101,18 @@ class TemplateSegment
         next unless klass.class == Class && klass.superclass == TemplateSegment
         
         segment_runner = klass.new(runner)
+        
+        TemplateSegment.announce(segment_runner.starting_message, :top)
+        
         if ! segment_runner.required? && ! agree_question(segment_runner.question, segment_runner.default)
+          TemplateSegment.announce("Skipping....", :bottom)
           segment_runner.bail_if_skipped? ? return : next
         end
         
-        TemplateSegment.announce(segment_runner.starting_message)
-        segment_runner.run
+        segment_runner.run_segment
         runner.git :add => '.'
         runner.git :commit => "-q -m '#{segment_runner.commit_message}'"
-        TemplateSegment.announce(segment_runner.ending_message)
+        TemplateSegment.announce(segment_runner.ending_message, :bottom)
         
       end
     end

@@ -16,7 +16,7 @@ class BundlerSetup < TemplateSegment
     "bundler setup"
   end
   
-  def run
+  def run_segment
     self.copy_file(File.join("config", "preinitializer.rb"))
     self.gsub_before(/(# All that for this)/, File.join("config", "boot.rb", "bundler.rb"))
   end
