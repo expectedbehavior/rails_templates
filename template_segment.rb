@@ -3,7 +3,7 @@ require 'highline/import'
 class TemplateSegment
   extend Forwardable
   
-  def_delegators :runner, :run, :git, :plugin, :environment, :route, :generate
+  def_delegators :runner, :run, :git, :plugin, :environment, :route, :generate, :log
   
   attr_accessor :runner
   
@@ -56,12 +56,14 @@ class TemplateSegment
   
   #can't just delegate this, it is a protected method
   def gsub_file(*args, &block)
+    self.log 'gsub_file', args.first
     self.runner.send(:gsub_file, *args, &block)
   end
   
-  #can't just delegate this, it is a protected method
-  def append_file(*args, &block)
-    self.runner.send(:append_file, *args, &block)
+  def append_file(path, dest_path = nil)
+    dest_path ||= File.dirname(path)
+    self.log 'append_file', dest_path
+    self.runner.send(:append_file, dest_path, "\n\n#{File.read(File.join(self.templates_path, path))}")
   end
   
   def self.templates_path=(value)
