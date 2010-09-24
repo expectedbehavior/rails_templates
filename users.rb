@@ -1,6 +1,7 @@
 generate(:scaffold, "User", "email:string", "crypted_password:string", "password_salt:string", "persistence_token:string") 
 
 run "rm app/views/users/{new,edit,index}*.erb"
+run "rm app/views/layouts/users.html.erb"
 
 file "app/views/users/index.haml", <<-END
 %h2 User List
@@ -22,7 +23,7 @@ END
 file "app/views/users/_form.haml", <<-END
 - form_for @user do |f|
   = f.error_messages
-  %p
+  %p.field
     = f.label :email
     %br
     = f.text_field :email
