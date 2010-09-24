@@ -21,7 +21,7 @@ class SessionKey < TemplateSegment
   end
   
   def session_line
-    "config.action_controller.session = { :session_key => '_#{self.app_name.down_under}_session', :secret => '#{self.secret}'}}\n"
+    "config.action_controller.session = { :session_key => '_#{self.app_name.down_under}_session', :secret => '#{self.secret}'}\n"
   end
   
   def run_segment

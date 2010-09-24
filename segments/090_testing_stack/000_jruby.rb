@@ -28,7 +28,7 @@ class InstallJRuby < TemplateSegment
     self.log 'copy', 'vendor/jruby-1.4.0'
     FileUtils.cp_r(File.join(self.templates_path, 'vendor', 'jruby-1.4.0'), File.join('.', 'vendor'))
     self.gsub_after(/(# Be sure to restart your server when you modify this file)/, 
-                    File.joing("config", "environment.rb", "jruby.rb"))
+                    File.join("config", "environment.rb", "jruby.rb"))
   end
   
 end

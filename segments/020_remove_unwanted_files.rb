@@ -18,9 +18,9 @@ class RemoveUnwantedFiles < TemplateSegment
   
   def run_segment
     self.run "echo 'TODO' > README"
-    self.run "rm public/index.html"
-    self.run "rm public/favicon.ico"
-    self.run "rm public/robots.txt"
+    self.git :rm => "public/index.html"
+    self.git :rm => "public/favicon.ico"
+    self.git :rm => "public/robots.txt"
   end
   
 end
