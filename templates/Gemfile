@@ -25,6 +25,7 @@ group :test, :cucumber, :culerity do
   gem 'assertions',       '=1.6.0',  :require => nil, :git => "git://github.com/expectedbehavior/assertions.git"
   gem 'capybara',         '=0.3.9'      
   gem 'celerity',         '=0.8.1',  :require => nil
+  gem 'culerity',         '=0.2.4',  :require => nil
   gem 'cucumber',         '=0.8.5'
   gem 'cucumber-rails',   '=0.3.2'
   gem 'database_cleaner', '=0.5.2',  :require => nil

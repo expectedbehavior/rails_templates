@@ -17,7 +17,6 @@ class InstallCulerity < TemplateSegment
   end
   
   def run_segment
-    self.plugin "culerity", :git => "git://github.com/langalex/culerity.git"
     self.copy_file File.join("config", "initializers", "capybara.rb")
     self.generate :cucumber
     self.generate :culerity, "-f"

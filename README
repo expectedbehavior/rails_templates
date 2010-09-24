@@ -1,7 +1,7 @@
 INSTALLATION
 ------------
 Clone this and run:
-rails -m /path/to/this/repo/base.rb
+ /path/to/this/repo/run.rb app_name
 
 DO NOT RUN THIS FROM GITHUB. IT WILL NOT WORK.
 
@@ -9,7 +9,7 @@ DO NOT RUN THIS FROM GITHUB. IT WILL NOT WORK.
 WHAT DO YOU GET?
 ----------------
 General
-* frozen copy of rails
+* bundler setup
 * lots of good plugins and gems you'll probably want (see below)
 * no annoying removing of the default files in public
 * a reasonably thorough .gitignore
@@ -17,24 +17,26 @@ General
 * usernames and strong default passwords for your envs
 * setup your mysql socket with the one we find on your system
 * your db initialized and ready for use
-* exception notification setup and ready to be used (see Caveats)
+* getexceptional setup and ready to be used
 * scaffolded user, authentication, and routing for those, with views in haml and a cucumber test to make sure they work
 * culerity setup for immediate use
 * some really sweet step definitions for your cucumber tests
 * everything is committed to a new local git repo!
 
 Plugins installed
-* db_setup - adds a script to manage your environments' databases
-* authlogic - authentication
-* haml - awesome templating
-* exception_notification - email yourself when something bad happens in your app
+* production_data - adds a script to manage your environments' databases
 * bootstrapper - awesome db data loading helper
-* culerity - wrapper for jruby's celerity
+* jrails - jquery for rails
+* cucumber_culerity_step_definitions - cooler step definitions
 
 Gems installed
+(for a full list, see templates/Gemfile)
+* authlogic - authentication
+* haml - awesome templating
 * factory_girl - create data for testing via factory instead of fixture
 * cucumber - testing framework of doooom
 * cucumber-rails - testing framerwork helper of doooom
+* culerity - wrapper for jruby's celerity
 * celerity - integration test with js support (built on htmlunit)(installed under jruby)
 * database_cleaner - used by cucumber to do some stuff with active_record
 
@@ -42,16 +44,13 @@ Misc installed
 * jruby - we want to control the version
 
 Gems required
-* pwfoo - password generation
-* highline/import - terminal interaction
+* bundler
 
 Caveats
 * We use mysql, so this is built with that in mind, though it's not required.
-* Exception notifier is setup to email our company.  You probably don't want that!
 * we install jruby into the project directly for use with culerity.  This means installing will take a while, and your project is going to be really big when you clone it
 * Our test setup is pretty non-standard.  You should really check out cucumber_culerity and understand what it does before you run this.
 * You will need to have java 1.5 installed (for now).
-* You'll need to have gemcutter setup as a gem source.
 
 HOW DO I KNOW IT WORKED?
 ------------------------
