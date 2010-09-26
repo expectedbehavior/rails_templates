@@ -73,16 +73,17 @@ class TemplateSegment
   end
   
   def copy_template(options = { })
-    src = options[:src]
     dest = options[:dest] || options[:src]
-    
+    self.runner.file dest, render_template(options)
+  end
+  
+  def render_template(options = { })
+    src = options[:src]
     vars = options[:assigns] || {}
     b = options[:binding] || binding
     vars.each { |k,v| eval "#{k} = vars[:#{k}] || vars['#{k}']", b }
     
-    result = ERB.new(File.read(File.join(self.templates_path, src)), nil, '-').result(b)
-
-    self.runner.file dest, result
+    ERB.new(File.read(File.join(self.templates_path, src)), nil, '-').result(b)
   end
   
   def self.templates_path=(value)

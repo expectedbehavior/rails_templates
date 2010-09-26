@@ -1,0 +1,26 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:name => "viewport", :content=> "width=device-width; initial-scale=1.0; maximum-scale=1.0;"}
+    %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
+    %title= yield(:title) || controller.controller_name.titleize
+    = stylesheet_link_tag "boilerplate.css"
+    = stylesheet_link_tag "handheld.css", :media => "handheld"
+    = javascript_include_tag "modernizr-1.5.min.js"
+  %body
+    #container
+      #header
+      #main
+        #flash
+          - flash.each do |k, v|
+            = content_tag :div, v, :class => k.to_s
+        #content
+          = yield
+      #footer
+  /[if lt IE 7] 
+    = javascript_include_tag "dd_belatedpng.js"
+  = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+  :javascript
+    !window.jQuery && document.write('<script src="javascripts/jquery-1.4.2.min.js"><\/script>')
+  = javascript_include_tag "jquery.livequery", "jrails", "lowpro.jquery", "application", "behaviors", :cache => (Rails.env.production? || Rails.env.staging?)

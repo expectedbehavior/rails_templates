@@ -1,7 +1,7 @@
 class JrailsPlugin < TemplateSegment
   
   def required?
-    false
+    true
   end
   
   def starting_message
@@ -14,10 +14,6 @@ class JrailsPlugin < TemplateSegment
   
   def commit_message
     "installed jrails plugin"
-  end
-  
-  def question
-    "Would you like to install the JRails plugin? [Yn]"
   end
   
   def run_segment
