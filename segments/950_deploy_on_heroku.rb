@@ -22,7 +22,8 @@ class DeployToHeroku < TemplateSegment
   
   def run_segment
     self.copy_file File.join('lib', 'tasks', 'heroku_san_tasks.rake')
-    self.copy_template(:src => File.join('config', 'heroku.yml'), :assigns => { :app_name => self.app_name.downcase })
+    heroku_name = self.app_name.downcase.gsub('_', '-')
+    self.copy_template(:src => File.join('config', 'heroku.yml'), :assigns => { :app_name => heroku_name })
     self.run "rake all heroku:create heroku:rack_env"
     self.run "git push heroku master"
   end
