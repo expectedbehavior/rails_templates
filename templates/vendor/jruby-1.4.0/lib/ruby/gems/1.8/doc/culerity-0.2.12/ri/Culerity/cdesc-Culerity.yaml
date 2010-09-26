@@ -1,0 +1,26 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+  - !ruby/object:RI::MethodSummary 
+    name: celerity_invocation
+  - !ruby/object:RI::MethodSummary 
+    name: culerity_root
+  - !ruby/object:RI::MethodSummary 
+    name: jruby_invocation
+  - !ruby/object:RI::MethodSummary 
+    name: jruby_invocation=
+  - !ruby/object:RI::MethodSummary 
+    name: run_rails
+  - !ruby/object:RI::MethodSummary 
+    name: run_server
+comment: 
+constants: []
+
+full_name: Culerity
+includes: []
+
+instance_methods: []
+
+name: Culerity
+superclass: 

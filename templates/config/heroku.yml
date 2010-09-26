@@ -1,0 +1,3 @@
+apps:
+  # shorthand: heroku app
+  production: <%= app_name -%>

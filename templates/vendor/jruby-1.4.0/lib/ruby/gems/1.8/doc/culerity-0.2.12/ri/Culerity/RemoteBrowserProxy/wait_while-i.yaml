@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Calls the block until it doesn't return true or <tt>time_to_wait</tt> is reached. <tt>time_to_wait</tt> is 30 seconds by default
+  - !ruby/struct:SM::Flow::P 
+    body: Returns true upon success Raises Timeout::Error when <tt>time_to_wait</tt> is reached.
+full_name: Culerity::RemoteBrowserProxy#wait_while
+is_singleton: false
+name: wait_while
+params: (time_to_wait=30, &block)
+visibility: public

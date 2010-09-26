@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>run_rails (Culerity)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/culerity.rb, line 47</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">run_rails</span>(<span class="ruby-identifier">options</span> = {})
+    <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">Rails</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-value str">&quot;tmp/culerity_rails_server.pid&quot;</span>)
+      <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;WARNING: Speed up execution by running 'rake culerity:rails:start'&quot;</span>
+      <span class="ruby-identifier">port</span>        = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:port</span>] <span class="ruby-operator">||</span> <span class="ruby-value">3001</span>
+      <span class="ruby-identifier">environment</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:environment</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'culerity'</span>
+      <span class="ruby-identifier">rails_server</span> = <span class="ruby-identifier">fork</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-value str">&quot;/dev/null&quot;</span>
+        <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-value str">&quot;/dev/null&quot;</span>
+        <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-value str">&quot;/dev/null&quot;</span>
+        <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">exec</span> <span class="ruby-node">&quot;script/server -e #{environment} -p #{port}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">sleep</span> <span class="ruby-value">5</span>
+      <span class="ruby-identifier">rails_server</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

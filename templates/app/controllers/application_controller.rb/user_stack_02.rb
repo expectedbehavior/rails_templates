@@ -1,0 +1,1 @@
+filter_parameter_logging :password, :password_confirmation

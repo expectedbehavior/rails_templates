@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Calls the passed method on the remote object with any arguments specified. Behaves the same as <tt>Object#send</tt>.
+  - !ruby/struct:SM::Flow::P 
+    body: "If you pass it a block then it will append the block as a &quot;lambda { \xE2\x80\xA6 }&quot;. If your block returns a lambda string (&quot;lambda { \xE2\x80\xA6 }&quot;) then it will be passed straight through, otherwise it will be wrapped in a lambda string before sending."
+full_name: Culerity::RemoteObjectProxy#send_remote
+is_singleton: false
+name: send_remote
+params: (name, *args, &blk)
+visibility: public

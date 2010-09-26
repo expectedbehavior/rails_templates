@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Specify whether to accept or reject all confirm js dialogs for the code in the block that's run.
+full_name: Culerity::RemoteBrowserProxy#confirm
+is_singleton: false
+name: confirm
+params: (bool, &block)
+visibility: public

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Culerity::PersistentDelivery::clear_deliveries
+is_singleton: true
+name: clear_deliveries
+params: ()
+visibility: public

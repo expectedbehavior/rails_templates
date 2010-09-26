@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Culerity::ServerCommands#close_browsers
+is_singleton: false
+name: close_browsers
+params: ()
+visibility: public
