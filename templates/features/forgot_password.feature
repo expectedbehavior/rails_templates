@@ -1,0 +1,46 @@
+Feature: Password Resets
+  In order to access the system
+  As a user
+  I have to reset my password
+
+  @shouldwork
+  Scenario: Password Resets
+    Given I am on the home page
+    When I follow "Signup"
+    And I fill in "Email" with "ebtestfakeaccount@gmail.com"
+    And I fill in "First name" with "Billy"
+    And I fill in "Last name" with "Bob"
+    And I fill in "Password" with "secret"
+    And I fill in "Password confirmation" with "secret"
+    And I press "Submit"
+    Then I should see "Thanks for signing up"
+    When I follow "Logout"
+    And I follow "Login"
+    Then I should see a link with text "Forgot your password?"
+    When I follow "Forgot your password?"
+    Then I should see a header with text "Reset Password"
+    When I fill in "email" with "jimmy_the_mole@example.com"
+    And I press "Reset Password"
+    Then I should see a header with text "Reset Password"
+    And I should see "No user was found with email address jimmy_the_mole@example.com."
+    When I fill in "email" with "ebtestfakeaccount@gmail.com"
+    And I press "Reset Password"
+    Then I should see "Instructions to reset your password have been emailed to you."
+    When I go to the password reset url for "ebtestfakeaccount@gmail.com"
+    Then I should see a header with text "Reset Password"
+    When I fill in "Password" with "laserbeam"
+    And I fill in "Password confirmation" with "laserbeam"
+    And I press "Update Password"
+    Then I should see "Logout"
+    And I should see "Your password was successfully updated"
+    When I follow "Logout"
+    And I follow "Login"
+    And I fill in "Email" with "ebtestfakeaccount@gmail.com"
+    And I fill in "Password" with "secret"
+    And I press "Submit"
+    Then I should see "Login failed."
+    When I fill in "Email" with "ebtestfakeaccount@gmail.com"
+    And I fill in "Password" with "laserbeam"
+    And I press "Submit"
+    Then I should see "Logout"
+    And I should see "Login successful!"

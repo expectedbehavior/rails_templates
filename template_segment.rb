@@ -1,4 +1,5 @@
 require 'highline/import'
+require 'erb'
 
 class TemplateSegment
   extend Forwardable
@@ -64,6 +65,24 @@ class TemplateSegment
     dest_path ||= File.dirname(path)
     self.log 'append_file', dest_path
     self.runner.send(:append_file, dest_path, "\n\n#{File.read(File.join(self.templates_path, path))}")
+  end
+  
+  def append_string(file, string)
+    self.log 'append_file', file
+    self.runner.send(:append_file, file, "\n\n#{string}")
+  end
+  
+  def copy_template(options = { })
+    src = options[:src]
+    dest = options[:dest] || options[:src]
+    
+    vars = options[:assigns] || {}
+    b = options[:binding] || binding
+    vars.each { |k,v| eval "#{k} = vars[:#{k}] || vars['#{k}']", b }
+    
+    result = ERB.new(File.read(File.join(self.templates_path, src)), nil, '-').result(b)
+
+    self.runner.file dest, result
   end
   
   def self.templates_path=(value)

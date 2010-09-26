@@ -1,4 +1,4 @@
-puts "NOTE::::::: This will only work if you run it through the run.sb script.  Do not run 'rails' directly!"
+puts "NOTE::::::: This will only work if you run it through the run.rb script.  Do not run 'rails' directly!"
 
 TEMPLATE_ROOT = File.dirname(File.expand_path(template))
 

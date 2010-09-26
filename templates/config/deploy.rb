@@ -1,7 +1,3 @@
-REPO_NAME = "<fill me in>"
-HOST_URL  = "<fill me in>"
-APP_NAME  = "<fill me in>"
-
 require "bundler/capistrano"
 
 default_run_options[:pty] = true
@@ -10,12 +6,12 @@ ssh_options[:paranoid] = false
 set :keep_releases, 5
 set :user,          "deploy"
 set :use_sudo,      false
-set :repository,    REPO_NAME
+set :repository,    "git@github.com:expectedbehavior/<%= app_name -%>.git"
 set :scm,           :git
 
 task   :production do
-  set  :application, APP_NAME
-  set  :host_url,    REPO_NAME
+  set  :application, "<%= app_name -%>"
+  set  :host_url,    "<%= app_name -%>.expectedbehavior.com"
   set  :deploy_to,   "/var/www/#{application}"
   set  :rails_env,   "production"
   role :app, host_url

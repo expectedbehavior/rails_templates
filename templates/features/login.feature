@@ -7,7 +7,7 @@ Feature: Logging in
   Scenario: Sign up and log into the system
     Given I am on the home page
     When I follow "Signup"
-    And I fill in "Email" with "billy@example.com"
+    And I fill in "Email" with "ebtestfakeaccount@gmail.com"
     And I fill in "First name" with "Billy"
     And I fill in "Last name" with "Bob"
     And I fill in "Password" with "secret"
@@ -16,7 +16,7 @@ Feature: Logging in
     Then I should see "Thanks for signing up"
     When I follow "Logout"
     And I follow "Login"
-    And I fill in "Email" with "billy@example.com"
+    And I fill in "Email" with "ebtestfakeaccount@gmail.com"
     And I fill in "Password" with "secret"
     And I press "Submit"
     And I should see "Login successful!"

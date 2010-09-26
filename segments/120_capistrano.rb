@@ -21,7 +21,7 @@ class SetupCapistrano < TemplateSegment
   end
   
   def run_segment
-    self.copy_file File.join('config', 'deploy.rb') #figure out a way to do easy replacement in this file
+    self.copy_template(:src => File.join('config', 'deploy.rb'), :assigns => { :app_name => self.app_name })
     self.copy_file File.join('Capfile')
   end
   

@@ -11,6 +11,7 @@ FileUtils.touch "#{RAILS_ROOT}/tmp/restart.txt"
 
 @@cucumber_cli_test_number = 1
 Before do
+  puts
   puts "--- TEST ##{@@cucumber_cli_test_number} ---"
   @@cucumber_cli_test_number += 1
 end
