@@ -1,0 +1,4 @@
+%h2 Edit Profile
+
+- form_for @user, :url => {:controller => "profile", :action => "update"} do |f|
+  = render "users/form", :f => f

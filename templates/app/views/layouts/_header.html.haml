@@ -1,6 +1,12 @@
-- if current_user
-  = link_to "Logout", [:logout]
-  = link_to "Profile", current_user
-- else
-  = link_to "Login", [:login]
-  = link_to "Signup", [:signup]
+%h1
+  = link_to Rails.root.to_s.split('/').last.titleize, [:root], :accesskey => "h", :title => "home page"
+
+%nav
+  %ul
+    - active_tab ||= :none
+    - if current_user
+      - [:profile, :logout].each do |key|
+        = header_menu_item(key, active_tab == key)
+    - else
+      - [:signup, :login].each do |key|
+        = header_menu_item(key, active_tab == key)

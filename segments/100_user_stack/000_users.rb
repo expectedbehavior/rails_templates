@@ -45,21 +45,25 @@ class InstallUserStack < TemplateSegment
     
     self.copy_file File.join('app', 'views', 'layouts', '_header.html.haml')
     
+    self.copy_file File.join('app', 'helpers', 'application_helper.rb')
+    
     self.copy_file File.join('app', 'controllers', 'users_controller.rb')
+    self.copy_file File.join('app', 'controllers', 'profile_controller.rb')
     self.copy_file File.join('app', 'controllers', 'user_sessions_controller.rb')
     
-    self.copy_file File.join('app', 'views', 'users', 'show.html.haml')
     self.copy_file File.join('app', 'views', 'users', 'new.html.haml')
-    self.copy_file File.join('app', 'views', 'users', 'edit.html.haml')
     self.copy_file File.join('app', 'views', 'users', '_form.html.haml')
+    self.copy_file File.join('app', 'views', 'profile', 'show.html.haml')
+    self.copy_file File.join('app', 'views', 'profile', 'edit.html.haml')
     self.copy_file File.join('app', 'views', 'user_sessions', 'new.html.haml')
     
     self.route 'map.signup "signup", :controller => "users",         :action => "new"'
     self.route 'map.login  "login",  :controller => "user_sessions", :action => "new"'
     self.route 'map.logout "logout", :controller => "user_sessions", :action => "destroy"'
-
+    
     self.route 'map.resources :user_sessions, :only => [ :new, :create, :destroy ]'
-    self.route 'map.resources :users, :except => [ :destroy, :index ]'
+    self.route 'map.resources :users, :only => [:new, :create]'
+    self.route 'map.resource  :profile, :only => [:show, :edit, :update], :controller => "profile'
     
     self.copy_file File.join("features", "login.feature")
   end
