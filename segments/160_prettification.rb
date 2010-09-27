@@ -9,7 +9,7 @@ class PrettifyRails < TemplateSegment
     "Prettifying to look somewhat like transadmin template (http://www.transdmin.perspectived.com/)"
   end
   
-  def end_message
+  def ending_message
     "Wham. Bam. Prettified, Ma'am"
   end
   
