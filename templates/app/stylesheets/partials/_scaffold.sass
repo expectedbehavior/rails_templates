@@ -1,0 +1,196 @@
+\:focus
+  outline: 0 none
+
+h1
+  font-size: 2.00em
+
+h2
+  font-size: 1.75em
+
+h3
+  font-size: 1.50em
+
+h4
+  font-size: 1.25em
+
+h5
+  font-size: 1.10em
+
+h6
+  font-size: 1.0em
+
+select, input, textarea, button
+  font: inherit
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+
+body
+  font: 13px / 1.5 Gill Sans, "Helvetica Neue", Arial, "Liberation Sans", FreeSans, sans-serif
+
+#container
+  margin: 0.5em auto
+  width: 930px
+
+header
+  h1
+    margin-bottom: 0.25em
+
+    a
+      text-decoration: none
+
+  nav
+    margin-bottom: 2em
+
+    a
+      display: block
+      float: left
+      font-weight: bold
+      line-height: 37px
+      padding: 0 20px
+      text-decoration: none
+
+    a, a:hover, a:visited, a:active
+      color: #646464
+
+    a:hover
+      background: #fdfcf6
+
+    a.active
+      background-color: #f0f0f0
+      background: -moz-linear-gradient(100% 100% 90deg, #e5e5e5, #f6f6f6)
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f6f6f6), to(#e5e5e5))
+      color: #454545
+
+  ul
+    margin-left: 0
+    background-color: #f6f6f6
+
+  li
+    border-right: 1px solid #ddd
+    float: left
+
+  .logout, .login
+    float: right
+    border-left: 1px solid #ddd
+    border-right: none
+
+header nav, #main
+  border: 5px solid #eee
+
+header ul, header nav a
+  height: 37px
+
+header ul, #main_interior
+  border: 1px solid #ddd
+
+#main_interior
+  min-height: 50px
+  padding: 14px 20px
+
+#main
+  h2
+    border-bottom: 1px solid #ddd
+    color: #646464
+    padding: 0 0 0.4em
+    margin-bottom: 0.75em
+
+  table
+    width: 100%
+
+    tr td
+      background: none repeat scroll 0 0 #F6F6F6
+      border-bottom: 1px solid #DDDDDD
+      height: 29px
+      line-height: 29px
+      padding: 0 20px
+
+    tr.odd td
+      background: none repeat scroll 0 0 #FBFBFB
+
+    .action
+      padding: 0 20px 0 10px
+      text-align: right
+
+      a
+        color: #9b9b9b
+        margin: 0 0 0 10px
+        text-decoration: none
+        padding: 4px 0
+
+    tr:hover .action 
+      .view
+        color: #55a34a
+
+      .edit
+        color: #c5a059
+
+      .delete
+        color: #a02b2b
+
+  tbody
+    border-top: 1px solid #DDDDDD
+
+  form
+    background: none repeat scroll 0 0 #fbfbfb
+    border: 1px solid #ddd
+    padding: 1.5em 1.5em 0.5em
+    margin-bottom: 0.25em
+
+    p
+      margin-bottom: 1em
+      width: 100%
+
+    label
+      display: inline-block
+      margin: 0 0 0.25em
+      width: 100%
+
+  input[type=submit], input[type=text], input[type=password], textarea
+    padding: 5px 7px
+    border: 1px solid #DDDDDD
+    color: #646464
+    margin: 0 10px 0 0
+
+  input[type=submit]
+    background-color: #f0f0f0
+
+  input[type=submit]:hover
+    background-color: #e6e6e6
+
+  input[type=text], input[type=password], textarea
+    width: 20em
+
+  table tr:hover td, input[type=text]:focus, input[type=password]:focus, textarea:focus
+    background-color: #fdfcf6
+
+footer
+  color: #9b9b9b
+  margin: 0.5em 0 2em
+  padding: 0 0 0 5px
+
+#flash
+  text-align: center
+  clear: both
+  max-width: 100%
+
+  > div
+    padding: 0.15em 0
+    margin-bottom: 0.5em
+
+  .error
+    border: thin solid #8b0000
+    background: #ffc0cb
+
+  .notice, .info
+    border: thin solid #ff9
+    background: #ffe
+
+  .warning
+    border: thin solid #ff8c63
+    background: #ffdab9
+
+  .success
+    border: thin solid #00ff00
+    background: #c0ffcb

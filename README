@@ -22,6 +22,7 @@ General
 * culerity setup for immediate use
 * some really sweet step definitions for your cucumber tests
 * everything is committed to a new local git repo!
+* a pretty starting point alike to - http://www.transdmin.perspectived.com/
 
 Plugins installed
 * production_data - adds a script to manage your environments' databases
