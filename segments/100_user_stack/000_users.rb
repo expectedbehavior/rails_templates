@@ -43,7 +43,7 @@ class InstallUserStack < TemplateSegment
     self.gsub_file(File.join('app', 'controllers', 'home_controller.rb'), 
                    /def index/, "  skip_before_filter :require_user\n  def index")
     
-    self.gsub_after(/\#header/, File.join('app', 'views', 'layouts', 'application.html.haml', 'user_stack.html.haml'))
+    self.copy_file File.join('app', 'views', 'layouts', '_header.html.haml')
     
     self.copy_file File.join('app', 'controllers', 'users_controller.rb')
     self.copy_file File.join('app', 'controllers', 'user_sessions_controller.rb')
