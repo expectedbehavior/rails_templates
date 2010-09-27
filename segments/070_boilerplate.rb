@@ -42,8 +42,6 @@ class AddBoilerplate < TemplateSegment
     self.copy_file File.join('app', 'controllers', 'home_controller.rb')
     
     self.copy_file File.join('config', 'routes.rb')
-    
-
   end
   
 end
