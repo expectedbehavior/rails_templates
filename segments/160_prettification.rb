@@ -14,7 +14,7 @@ class PrettifyRails < TemplateSegment
   end
   
   def commit_message
-    "prettier than your daddy's scaffolding"
+    "prettier than your scaffolding"
   end
   
   def question
