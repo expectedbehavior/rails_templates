@@ -26,9 +26,15 @@ class InstallForgotPassword < TemplateSegment
     
     self.append_string(File.join('config', 'environment.rb'), "EMAIL_FROM_ADDRESS = 'support@expectedbehavior.com'")
     
-    config = YAML.load(File.open(".webconfig.yml").read)
+    config = nil
+    if File.exists? ".webconfig.yml"
+      config = YAML.load(File.open(".webconfig.yml").read)
+    else
+      puts "COULD NOT READ WEBCONFIG.YML. YOU MUST SET EMAIL DEFAULT HOSTS YOURSELF."
+    end  
+    
     [:development, :test, :production].each do |env|
-      host = "#{config[env][:server_names].first}:#{config[env][:port]}"
+      host = config ? "#{config[env][:server_names].first}:#{config[env][:port]}" : "unknown.local"
       str = (env == :production ? "" : "config.action_mailer.delivery_method = :test\n")
       
       self.append_string(File.join('config', 'environments', "#{env}.rb"), 

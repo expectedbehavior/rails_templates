@@ -32,10 +32,9 @@ class AddBoilerplate < TemplateSegment
     self.copy_file File.join('public', 'javascripts', 'jquery.livequery.js')
     self.copy_file File.join('public', 'javascripts', 'jquery-ui-1.8.5.custom.min.js')
     
-    system "rm #{File.join('public', 'javascripts', 'rails.js')}"
     self.gsub_file(File.join('app', 'views', 'layouts', '_javascripts.html.haml'),
                    /javascript_include_tag 'rails', 'plugins', 'application'/,
-                   "javascript_include_tag 'lowpro.jquery', 'jquery.livequery', 'plugins', 'application', 'behaviors'")
+                   "javascript_include_tag 'lowpro.jquery', 'jquery.livequery', 'rails', 'plugins', 'application', 'behaviors'")
     
     self.copy_file File.join('app', 'views', 'home', 'index.html.haml')
     
