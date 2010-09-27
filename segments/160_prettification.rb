@@ -17,9 +17,13 @@ class PrettifyRails < TemplateSegment
     "prettier than your daddy's scaffolding"
   end
   
+  def question
+    "Would you like to have a pretty scaffold?"
+  end
+  
   def run_segment
-    self.copy_file File.join('app', 'views', 'stylesheets', 'partials', '_page.scss')
-    self.copy_file File.join('app', 'views', 'stylesheets', 'partials', '_scaffold.sass')
+    self.copy_file File.join('app', 'stylesheets', 'partials', '_page.scss')
+    self.copy_file File.join('app', 'stylesheets', 'partials', '_scaffold.sass')
     self.copy_file File.join('app', 'views', 'layouts', 'application.html.haml')
   end
 end
