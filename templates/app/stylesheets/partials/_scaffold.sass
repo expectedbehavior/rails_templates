@@ -163,7 +163,14 @@ header ul, #main_interior
     width: 20em
 
   table tr:hover td, input[type=text]:focus, input[type=password]:focus, textarea:focus
-    background-color: #fdfcf6
+    background: #fdfcf6 !important
+
+  .fieldWithErrors
+    input[type=text], input[type=password], textarea
+      background: #fff0eb
+      border: thin solid #8b0000
+    label
+      color: #8b0000
 
 footer
   color: #9b9b9b
@@ -195,3 +202,10 @@ footer
     border: thin solid #00ff00
     background: #c0ffcb
 
+#errorExplanation
+  h2
+    font-size: 1.5em
+    color: #8b0000
+
+  ul
+    margin-bottom: 1em
