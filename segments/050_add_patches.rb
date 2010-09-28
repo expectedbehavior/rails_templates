@@ -13,11 +13,11 @@ class AddPatches < TemplateSegment
   end
   
   def commit_message
-    "common string patches added"
+    "common rails patches added"
   end
   
   def question
-    "Would you like to add the common string patches? [Yn]"
+    "Would you like to add the common rails patches (String - {down_under, filename_sanitize}, ARes.logger=AR.logger, field_error_proc change to be less obnoxious)? [Yn]"
   end
   
   def run_segment
