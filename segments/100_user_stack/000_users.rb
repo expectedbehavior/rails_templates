@@ -63,7 +63,7 @@ class InstallUserStack < TemplateSegment
     
     self.route 'map.resources :user_sessions, :only => [ :new, :create, :destroy ]'
     self.route 'map.resources :users, :only => [:new, :create]'
-    self.route 'map.resource  :profile, :only => [:show, :edit, :update], :controller => "profile'
+    self.route 'map.resource  :profile, :only => [:show, :edit, :update], :controller => "profile"'
     
     self.copy_file File.join("features", "login.feature")
   end
