@@ -14,7 +14,7 @@ gem 'html5-boilerplate',  '=0.2.2'
 gem 'mysql',              '=2.8.1'
 gem 'pwfoo',              '=0.1.2'
 gem 'rack',               '=1.1.0'
-gem 'rails',              '=2.3.9'
+gem 'rails',              '=2.3.10'
 
 group :development, :test, :cucumber, :culerity do
   gem 'cf_ruby_gems',     '=0.1.5', :require => nil, :git => "git://github.com/expectedbehavior/cf_ruby_gems.git"
