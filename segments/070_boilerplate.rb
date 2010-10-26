@@ -22,7 +22,7 @@ class AddBoilerplate < TemplateSegment
     self.git :rm => File.join('public', 'javascripts', 'effects.js')
     self.git :rm => File.join('public', 'javascripts', 'prototype.js')
     
-    self.plugin 'jrails', :git => 'git://github.com/aaronchi/jrails.git'
+    self.plugin 'jrails', :git => 'git://github.com/glanotte/jrails.git'
     
     system "./bin/compass init rails -r html5-boilerplate -u html5-boilerplate --force"
     self.gsub_file File.join('app', 'views', 'layouts', '_head.html.haml'), /  = csrf_meta_tag/, ""
