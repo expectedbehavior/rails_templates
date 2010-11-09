@@ -21,7 +21,7 @@ class InstallFixYouSomeAddressBar < TemplateSegment
   end
   
   def run_segment
-    self.plugin 'fix_you_some_address_bar', :git => 'git@github.com:expectedbehavior/fix_you_some_address_bar.git'
+    self.plugin 'fix_you_some_address_bar', :git => 'git://github.com/expectedbehavior/fix_you_some_address_bar.git'
   end
   
 end
