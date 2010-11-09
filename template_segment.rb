@@ -108,7 +108,7 @@ class TemplateSegment
   end
 
   def self.run_segments(path, runner)
-    Dir.glob(File.join(path, "*")).each do |segment|
+    Dir.glob(File.join(path, "*")).sort.each do |segment|
       if File.directory?(segment)
         TemplateSegment.run_segments(segment, runner)
         next
