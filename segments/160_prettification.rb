@@ -18,7 +18,7 @@ class PrettifyRails < TemplateSegment
   end
   
   def question
-    "Would you like to have a pretty scaffold?"
+    "Would you like to have a pretty scaffold? [Yn]"
   end
   
   def run_segment
