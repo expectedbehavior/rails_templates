@@ -23,6 +23,7 @@ class SetupCapistrano < TemplateSegment
   def run_segment
     self.copy_template(:src => File.join('config', 'deploy.rb'), :assigns => { :app_name => self.app_name })
     self.copy_file File.join('Capfile')
+    self.copy_file File.join('lib','tasks','sass.rake')
   end
   
 end
