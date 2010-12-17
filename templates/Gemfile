@@ -9,12 +9,15 @@ gem 'compass',            '=0.10.5'
 gem 'email_veracity',     '=0.6.0'
 gem 'exceptional',        '=2.0.6'
 gem 'haml',               '=3.0.18'
+gem 'haml_scaffold',      '=1.1.0'
 gem 'highline',           '=1.5.2'
 gem 'html5-boilerplate',  '=0.2.2'
+gem 'mocha',              '=0.9.10'
 gem 'mysql',              '=2.8.1'
 gem 'pwfoo',              '=0.1.2'
 gem 'rack',               '=1.1.0'
 gem 'rails',              '=2.3.10'
+gem 'will_paginate',      '=2.3.15'
 
 group :development, :test, :cucumber, :culerity do
   gem 'cf_ruby_gems',     '=0.1.5', :require => nil, :git => "git://github.com/expectedbehavior/cf_ruby_gems.git"
