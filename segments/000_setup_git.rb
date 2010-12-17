@@ -21,6 +21,7 @@ class SetupGit < TemplateSegment
     self.run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
     self.copy_file("gitignore", '.gitignore')
     self.git :init
+    self.run "git add -f tmp/.gitignore log/.gitignore vendor/.gitignore"
   end
   
 end
