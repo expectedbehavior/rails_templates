@@ -9,7 +9,7 @@ gem 'compass',            '=0.10.5'
 gem 'email_veracity',     '=0.6.0'
 gem 'exceptional',        '=2.0.6'
 gem 'haml',               '=3.0.18'
-gem 'haml_scaffold',      '=1.1.1', :git => "git://github.com/expectedbehavior/haml-scaffold.git"
+gem 'haml_scaffold',      '=1.1.0'
 gem 'highline',           '=1.5.2'
 gem 'html5-boilerplate',  '=0.2.2'
 gem 'mocha',              '=0.9.10'
