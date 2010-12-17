@@ -27,6 +27,6 @@ class Html5FormHelpers < TemplateSegment
   end
   
   def run_segment
-    self.plugin 'fix_you_some_address_bar', :git => 'https://github.com/jessedearing/html5_rails2_plugin.git'
+    self.plugin 'html5-helpers', :git => 'https://github.com/jessedearing/html5_rails2_plugin.git'
   end
 end
