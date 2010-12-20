@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = 'Thanks for signing up'
-      redirect_to(@user)
+      redirect_to [:profile]
     else
       render :action => "new"
     end

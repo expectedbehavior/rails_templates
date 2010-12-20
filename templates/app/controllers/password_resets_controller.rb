@@ -29,7 +29,7 @@ class PasswordResetsController < ApplicationController
     if @user.update_attributes(params[:user])
 
       flash[:success] = "Your password was successfully updated."
-      redirect_to @user
+      redirect_to [:profile]
     else
       render :action => :edit
     end
