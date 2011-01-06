@@ -1,5 +1,8 @@
 #!/usr/bin/expect
 
+# run without args, from your projects dir, you'll be prompted for stuff
+#   $ expect rails_templates/run.exp
+
 # exp_internal 1
 
 puts "running template"
