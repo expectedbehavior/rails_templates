@@ -1,6 +1,6 @@
 #!/usr/bin/expect
 
-exp_internal 1
+# exp_internal 1
 
 puts "running template"
 
