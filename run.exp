@@ -1,0 +1,130 @@
+#!/usr/bin/expect
+
+# run without args, from your projects dir, you'll be prompted for stuff
+#   $ expect rails_templates/run.exp
+
+# exp_internal 1
+
+puts "running template"
+
+puts ""
+puts "project name: "
+
+gets stdin project_name
+
+puts ""
+puts "mysql root password: "
+
+stty -echo
+gets stdin mysql_root_pw
+stty echo
+
+puts ""
+puts "root password: "
+
+stty -echo
+gets stdin root_pw
+stty echo
+
+puts ""
+puts "getexceptional api key: "
+
+gets stdin getexceptional_api_key
+
+set timeout -1
+
+puts ""
+
+spawn bash -c "rails_templates/run.rb $project_name; sleep 10; echo done"
+
+puts ""
+
+expect "gimme root sql password for db_setup: "
+# sleep, otherwise pw gets echoed to stdout
+sleep 1
+send "$mysql_root_pw\r"
+
+expect "Would you like to configure exceptional?"
+send "y\r"
+
+expect "exceptional key for application: "
+send "$getexceptional_api_key\r"
+
+expect "Would you like to add the common rails patches"
+send "y\r"
+
+expect "Compass recommends that you keep your stylesheets in app/stylesheets"
+send "y\r"
+
+expect "Compass recommends that you keep your compiled css in public/stylesheets/compiled/"
+send "y\r"
+
+expect "Would you like to install the Bootstrapper plugin?"
+send "y\r"
+
+expect "Would you like to run the web server config generator?"
+send "y\r"
+
+expect "Setup ghost entries for projects?"
+send "y\r"
+
+expect "Password:"
+stty -echo
+send "$root_pw\r"
+stty echo
+
+expect "Restart nginx"
+send "y\r"
+
+expect "Would you like to install the jruby testing stack?"
+send "y\r"
+
+expect "Would you like to install the user stack?"
+send "y\r"
+
+expect "Would you like to install the forgot password stack?"
+send "y\r"
+
+expect "Would you like to install the connection fix patch?"
+send "y\r"
+
+expect "Would you like to setup capistrano?"
+send "y\r"
+
+expect "Would you like to install the never forget multipart plugin?"
+send "y\r"
+
+expect "Would you like to install the fix you some address bar plugin?"
+send "y\r"
+
+expect "Would you like to add the pave and repave tasks?"
+send "y\r"
+
+expect "Would you like to have a pretty scaffold?"
+send "y\r"
+
+expect "Would you like to migrate the database?"
+send "y\r"
+
+expect "Would you like to deploy the app to heroku?"
+send "n\r"
+
+# sleep 8
+
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+# expect -re $
+
+# puts "$expect_out(buffer)"
+
+puts ""
+puts "done"
