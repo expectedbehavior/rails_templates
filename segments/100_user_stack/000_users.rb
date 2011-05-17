@@ -41,7 +41,7 @@ class InstallUserStack < TemplateSegment
               File.read(File.join(self.templates_path, 'app', 'controllers', 'application_controller.rb', 'user_stack_02.rb')))
     
     self.gsub_file(File.join('app', 'controllers', 'home_controller.rb'), 
-                   /def index/, "  skip_before_filter :require_user\n  def index")
+                   /def index/, "skip_before_filter :require_user\n\n  def index")
     
     self.copy_file File.join('app', 'views', 'layouts', '_header.html.haml')
     
@@ -64,8 +64,13 @@ class InstallUserStack < TemplateSegment
     self.route 'map.resources :user_sessions, :only => [ :new, :create, :destroy ]'
     self.route 'map.resources :users, :only => [:new, :create]'
     self.route 'map.resource  :profile, :only => [:show, :edit, :update], :controller => "profile"'
-    
+
+    self.copy_file File.join("test", "unit", "user_test.rb")
+    self.copy_file File.join("test", "functional", "users_controller_test.rb")
+    self.copy_file File.join("test", "functional", "profile_controller_test.rb")
     self.copy_file File.join("features", "login.feature")
+    self.copy_file File.join("features", "profile.feature")
+    self.copy_file File.join("features", "step_definitions", "project_steps.rb")
   end
   
 end

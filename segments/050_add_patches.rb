@@ -22,6 +22,7 @@ class AddPatches < TemplateSegment
   
   def run_segment
     self.copy_file File.join('lib', 'patches', 'string.rb')
+    self.copy_file File.join("test", "unit", "string_path_test.rb")
     self.append_file File.join('config', 'environment.rb', 'add_patches.rb')
   end
   

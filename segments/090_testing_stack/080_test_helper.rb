@@ -23,6 +23,8 @@ class AddToTestHelper < TemplateSegment
     self.copy_file File.join("lib", "patches", "float.rb")
     self.copy_file File.join("lib", "test_unit_slow.rb")
     self.append_file File.join("test", "test_helper.rb", "useful_stuff.rb")
+    self.gsub_file(File.join("test", "test_helper.rb"), /require 'test_help'/, 
+                   "require 'test_help'\nrequire 'assertions'\nrequire 'authlogic/test_case'")
   end
   
 end

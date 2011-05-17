@@ -20,6 +20,8 @@ class CucumberPaths < TemplateSegment
     cucumber_paths = {
       "the signup page" => "signup_path",
       "the login page"  => "login_path",
+      "logout" => "logout_path",
+      "my profile" => "profile_path"
     }
     cucumber_paths.each do |matcher, path|
       self.gsub_file "features/support/paths.rb", /(case page_name.*)/, "\\1\n    when /#{matcher}/\n      #{path}\n"

@@ -29,8 +29,9 @@ Plugins installed
 * bootstrapper - awesome db data loading helper
 * jrails - jquery for rails
 * cucumber_culerity_step_definitions - cooler step definitions
+* rcov_rails - easy rcov action (run with rake test:coverage)
 
-Gems installed
+Gems of note installed
 (for a full list, see templates/Gemfile)
 * authlogic - authentication
 * haml - awesome templating
@@ -56,5 +57,4 @@ Caveats
 HOW DO I KNOW IT WORKED?
 ------------------------
 After the app is done installing, run the following at the command line:
-cucumber features
-
+ rake

@@ -7,3 +7,5 @@ TemplateSegment.templates_path = File.join(TEMPLATE_ROOT, 'templates')
 require File.join(TEMPLATE_ROOT, 'templates', 'lib', 'patches', 'string.rb')
 
 TemplateSegment.run_segments(File.join(TEMPLATE_ROOT, 'segments'), self)
+
+puts "If you migrated and setup your servers with the web server config tool, you should now be able to run 'rake' without arguments to make sure everything is working correctly."

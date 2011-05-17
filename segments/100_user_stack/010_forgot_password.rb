@@ -58,7 +58,8 @@ class InstallForgotPassword < TemplateSegment
                        "= link_to 'Forgot your password?', [:new, :password_reset]")
     
     self.route("map.resources :password_resets, :only => [ :new, :create, :edit, :update ]")
-    
+
+    self.copy_file File.join("test", "unit", "forgot_password_email_test.rb")
     self.copy_file File.join('features', 'forgot_password.feature')
     self.copy_file File.join('features', 'step_definitions', 'forgot_password_steps.rb')
   end

@@ -4,7 +4,7 @@ class String
   end
 
   def filename_sanitize
-    returning self.strip do |name|
+    self.strip.tap do |name|
       # NOTE: File.basename doesn't work right with Windows paths on Unix
       # get only the filename, not the whole path
       name.gsub! /^.*(\\|\/)/, ''

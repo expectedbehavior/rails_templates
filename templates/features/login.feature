@@ -3,7 +3,7 @@ Feature: Logging in
   As a user
   I want to login to the system
 
-  @1 @shouldwork @happy_case
+  @ok @shouldwork
   Scenario: Sign up and log into the system
     Given I am on the home page
     When I follow "Signup"

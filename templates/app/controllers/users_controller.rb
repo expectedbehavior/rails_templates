@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
+    @user.password_validation_required = true
 
     if @user.save
       flash[:notice] = 'Thanks for signing up'

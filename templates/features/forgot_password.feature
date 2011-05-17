@@ -3,7 +3,7 @@ Feature: Password Resets
   As a user
   I have to reset my password
 
-  @shouldwork
+  @ok @shouldwork
   Scenario: Password Resets
     Given I am on the home page
     When I follow "Signup"

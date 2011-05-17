@@ -23,7 +23,7 @@ module Test
             @already_outputted = false
           end
           
-          alias tu_finished finished
+          alias :tu_finished :finished
           def finished(elapsed_time)
             tu_finished(elapsed_time)
             if NetRecorder.recording?
