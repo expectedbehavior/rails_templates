@@ -59,7 +59,9 @@ class InstallForgotPassword < TemplateSegment
     
     self.route("map.resources :password_resets, :only => [ :new, :create, :edit, :update ]")
 
-    self.copy_file File.join("test", "unit", "forgot_password_email_test.rb")
+    self.copy_template(:src => File.join("test", "unit", "forgot_password_email_test.rb"),
+                       :assigns => { :app_name => self.app_name.titleize, 
+                                     :fqdn     => self.fqdn(:environment => :test) })
     self.copy_file File.join('features', 'forgot_password.feature')
     self.copy_file File.join('features', 'step_definitions', 'forgot_password_steps.rb')
   end
