@@ -40,6 +40,21 @@ class TemplateSegment
     File.basename(FileUtils.pwd)
   end
   
+  def host_name(options = {:environment => :development})
+    "#{app_name.dasherize}-#{options[:environment].to_s}"
+  end
+  
+  def fqdn(options = {:environment => :development})
+    config = YAML.load(File.open(".webconfig.yml").read) if File.exists? ".webconfig.yml"
+    if config
+      env  = options[:environment]
+      port = config[env][:port]
+      "#{host_name(options)}.local:#{port}"
+    else
+      "#{host_name(options)}.local"
+    end     
+  end
+  
   def copy_file(path, dest_path = nil)
     dest_path ||= path
     self.runner.file dest_path, File.read(File.join(self.templates_path, path))
