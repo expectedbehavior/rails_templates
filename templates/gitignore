@@ -23,7 +23,8 @@ public/javascripts/all.js
 public/stylesheets/all.css
 public/images/upload
 public/data
-vendor/bundle
+vendor/bundle/ruby/1.[89]/*
+!vendor/bundle/ruby/1.[89]/cache
 test/log
 tmp
 coverage.data
