@@ -57,7 +57,7 @@ class TemplateSegment
   
   def copy_file(path, dest_path = nil)
     dest_path ||= path
-    self.runner.file dest_path, File.read(File.join(self.templates_path, path))
+    self.runner.create_file dest_path, File.read(File.join(self.templates_path, path))
   end
   
   def gsub_after(regexp, path)
