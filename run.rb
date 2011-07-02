@@ -13,4 +13,4 @@ Dir.chdir(project_dir)
 system "bundle install --binstubs --path vendor/bundle/"
 system "bundle package"
 
-system "./bin/rails -d mysql -m \"#{File.join(template_dir, 'base.rb')}\" ./"
+system "./bin/rails new ./ -d mysql -m \"#{File.join(template_dir, 'base.rb')}\" "
