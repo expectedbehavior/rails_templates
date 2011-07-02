@@ -1,6 +1,8 @@
 puts "NOTE::::::: This will only work if you run it through the run.rb script.  Do not run 'rails' directly!"
-
-TEMPLATE_ROOT = File.dirname(File.expand_path(template))
+require 'ruby-debug'
+Debugger.start
+debugger
+TEMPLATE_ROOT = File.dirname(File.expand_path(path))
 
 require File.join(TEMPLATE_ROOT, 'template_segment.rb')
 TemplateSegment.templates_path = File.join(TEMPLATE_ROOT, 'templates')
