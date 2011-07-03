@@ -5,23 +5,23 @@ class BootstrapperPlugin < TemplateSegment
   end
   
   def starting_message
-    "Installing Bootstrapper Plugin..."
+    "Configuring Bootstrapper Gem..."
   end
   
   def ending_message
-    "Bootstrapper Plugin Installed"
+    "Bootstrapper Gem Configured"
   end
   
   def commit_message
-    "installed bootstrapper plugin"
+    "bootstrapper config"
   end
   
   def question
-    "Would you like to install the Bootstrapper plugin? [Yn]"
+    "Would you like to configure the bootstrapper gem? [Yn]"
   end
   
   def run_segment
-    self.plugin 'bootstrapper', :git => 'git://github.com/expectedbehavior/bootstrapper.git'
+#     self.plugin 'bootstrapper', :git => 'git://github.com/expectedbehavior/bootstrapper.git'
     self.generate :bootstrapper
     self.gsub_file "db/bootstrap.rb", /^(Bootstrapper.for :test.*)/, "\\1\n  b.truncate_tables :all"
   end

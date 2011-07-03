@@ -17,8 +17,6 @@ class AddBoilerplate < TemplateSegment
   end
   
   def run_segment
-    self.plugin 'jrails', :git => 'git://github.com/glanotte/jrails.git'
-    
     system "./bin/compass init rails -r html5-boilerplate -u html5-boilerplate --force"
     self.gsub_file File.join('app', 'views', 'layouts', '_head.html.haml'), /  = csrf_meta_tag/, ""
     
@@ -36,7 +34,7 @@ class AddBoilerplate < TemplateSegment
     
     self.copy_file File.join('app', 'controllers', 'home_controller.rb')
     
+    self.git :rm => "config/routes.rb"
     self.copy_file File.join('config', 'routes.rb')
   end
-  
 end
