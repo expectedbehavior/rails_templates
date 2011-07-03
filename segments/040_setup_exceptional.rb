@@ -22,7 +22,7 @@ class SetupExceptional < TemplateSegment
   
   def run_segment
     key = HighLine.ask("exceptional key for application: ")
-    self.run "exceptional install #{key}"
+    self.run "exceptional install #{key}", :verbose => false
     self.append_file File.join('config', 'environment.rb', 'exceptional.rb')
   end
   
