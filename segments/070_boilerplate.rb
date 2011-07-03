@@ -17,11 +17,6 @@ class AddBoilerplate < TemplateSegment
   end
   
   def run_segment
-    self.git :rm => File.join('public', 'javascripts', 'controls.js')
-    self.git :rm => File.join('public', 'javascripts', 'dragdrop.js')
-    self.git :rm => File.join('public', 'javascripts', 'effects.js')
-    self.git :rm => File.join('public', 'javascripts', 'prototype.js')
-    
     self.plugin 'jrails', :git => 'git://github.com/glanotte/jrails.git'
     
     system "./bin/compass init rails -r html5-boilerplate -u html5-boilerplate --force"
