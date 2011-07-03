@@ -52,11 +52,10 @@ class SetupDatabase < TemplateSegment
     end
 
     self.gsub_file "config/database.yml", /(socket:.*)/, self.socket_erb
-    
     self.plugin 'production_data', :git => 'git://github.com/expectedbehavior/production_data.git'
     
     pw = HighLine.ask("gimme root sql password for db_setup: ") { |q| q.echo = false }
-    self.run "script/db_setup -c --password #{pw}", false
+    self.run "script/db_setup -c --password #{pw}", :verbose => false
   end
   
 end
